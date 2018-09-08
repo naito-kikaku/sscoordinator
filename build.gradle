@@ -11,6 +11,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
@@ -20,6 +21,23 @@ group = 'naito-kikaku'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 10
 
+bootJar {
+    launchScript()
+}
+
+sourceSets {
+    main {
+        resources.srcDirs = ["src/main/java", "src/main/resources"]
+    }
+}
+
+bootRun {
+    sourceResources sourceSets.main
+    if (project.hasProperty('args')) {
+        args project.args.split('\\s+')
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -27,7 +45,12 @@ repositories {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2')
+    compile('mysql:mysql-connector-java:6.0.6')
+    compile('com.h2database:h2')
+
     runtime('org.springframework.boot:spring-boot-devtools')
     compileOnly('org.projectlombok:lombok')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.spockframework:spock-spring:1.1-groovy-2.4')
 }

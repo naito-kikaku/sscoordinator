@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="naitokikaku.sscoordinator.infrastructure.datasource.event.EventMapper">
+
+    <resultMap id="EventId" type="naitokikaku.sscoordinator.domain.model.event.EventId">
+        <result property="value" column="next_event_id"/>
+    </resultMap>
+
+    <resultMap id="EventRevisionId" type="naitokikaku.sscoordinator.domain.model.event.EventRevisionId">
+        <result property="value" column="next_event_revision_id"/>
+    </resultMap>
+
+    <resultMap id="EventRevisionNumber" type="naitokikaku.sscoordinator.domain.model.event.EventRevisionNumber">
+        <result property="value" column="next_event_revision_number"/>
+    </resultMap>
+
+    <select id="nextEventId" resultMap="EventId">
+        SELECT nextval('event.event_sequence_number') as next_event_id
+    </select>
+
+    <select id="nextEventRevisionId" resultMap="EventRevisionId">
+        SELECT nextval('event.event_sequence_number') as next_event_revision_id
+    </select>
+
+    <select id="nextEventRevisionNumber" resultMap="EventRevisionNumber">
+        SELECT event_revision_number + 1 as next_event_revision_number
+        FROM event.latest_events
+        WHERE event_id = #{eventId.value}
+    </select>
+
+    <insert id="store">
+        INSERT INTO event.events (event_id)
+        VALUES (#{eventId.value});
+    </insert>
+
+    <insert id="storeRevision">
+        INSERT INTO event.event_revisions (event_revision_id, event_id, event_revision_number, event_name)
+        VALUES (#{eventRevisionId.value}, #{eventId.value}, #{eventRevisionNumber.value}, #{event.name.value})
+    </insert>
+
+    <insert id="storeLatestPointer">
+        INSERT INTO event.latest_events (event_id, event_revision_id, event_revision_number)
+        VALUES (#{eventId.value}, #{eventRevisionId.value}, #{eventRevisionNumber.value})
+    </insert>
+
+</mapper>
