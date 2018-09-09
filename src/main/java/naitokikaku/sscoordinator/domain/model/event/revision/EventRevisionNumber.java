@@ -1,4 +1,4 @@
-package naitokikaku.sscoordinator.domain.model.event;
+package naitokikaku.sscoordinator.domain.model.event.revision;
 
 import lombok.EqualsAndHashCode;
 

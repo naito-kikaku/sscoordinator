@@ -5,15 +5,15 @@
 
 <mapper namespace="naitokikaku.sscoordinator.infrastructure.datasource.event.EventMapper">
 
-    <resultMap id="EventId" type="naitokikaku.sscoordinator.domain.model.event.EventId">
+    <resultMap id="EventId" type="naitokikaku.sscoordinator.domain.model.event.identity.EventId">
         <result property="value" column="next_event_id"/>
     </resultMap>
 
-    <resultMap id="EventRevisionId" type="naitokikaku.sscoordinator.domain.model.event.EventRevisionId">
+    <resultMap id="EventRevisionId" type="naitokikaku.sscoordinator.domain.model.event.revision.EventRevisionId">
         <result property="value" column="next_event_revision_id"/>
     </resultMap>
 
-    <resultMap id="EventRevisionNumber" type="naitokikaku.sscoordinator.domain.model.event.EventRevisionNumber">
+    <resultMap id="EventRevisionNumber" type="naitokikaku.sscoordinator.domain.model.event.revision.EventRevisionNumber">
         <result property="value" column="next_event_revision_number"/>
     </resultMap>
 

@@ -1,6 +1,9 @@
 package naitokikaku.sscoordinator.infrastructure.datasource.event;
 
 import naitokikaku.sscoordinator.domain.model.event.*;
+import naitokikaku.sscoordinator.domain.model.event.identity.EventId;
+import naitokikaku.sscoordinator.domain.model.event.revision.EventRevisionId;
+import naitokikaku.sscoordinator.domain.model.event.revision.EventRevisionNumber;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;

@@ -1,17 +1,17 @@
-package naitokikaku.sscoordinator.domain.model.event;
+package naitokikaku.sscoordinator.domain.model.event.identity;
 
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
 @EqualsAndHashCode
-public class EventRevisionId implements Serializable {
+public class EventId implements Serializable {
     Long value;
 
-    public EventRevisionId() {
+    public EventId() {
     }
 
-    public EventRevisionId(Long value) {
+    public EventId(Long value) {
         this.value = value;
     }
 

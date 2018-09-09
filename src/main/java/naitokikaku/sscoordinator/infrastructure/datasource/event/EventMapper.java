@@ -1,9 +1,9 @@
 package naitokikaku.sscoordinator.infrastructure.datasource.event;
 
 import naitokikaku.sscoordinator.domain.model.event.Event;
-import naitokikaku.sscoordinator.domain.model.event.EventId;
-import naitokikaku.sscoordinator.domain.model.event.EventRevisionId;
-import naitokikaku.sscoordinator.domain.model.event.EventRevisionNumber;
+import naitokikaku.sscoordinator.domain.model.event.identity.EventId;
+import naitokikaku.sscoordinator.domain.model.event.revision.EventRevisionId;
+import naitokikaku.sscoordinator.domain.model.event.revision.EventRevisionNumber;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
