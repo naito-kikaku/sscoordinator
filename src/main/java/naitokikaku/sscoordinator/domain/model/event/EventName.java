@@ -1,12 +1,14 @@
 package naitokikaku.sscoordinator.domain.model.event;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @EqualsAndHashCode
+@Getter
 public class EventName implements Serializable {
     @NotEmpty
     @Size(max = 128)

@@ -5,9 +5,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
 
-@ControllerAdvice
+@ControllerAdvice(basePackages = "naitokikaku.sscoordinator.presentation.controller")
 public class DirectFieldAccessAdvice {
-    static
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {

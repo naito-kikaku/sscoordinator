@@ -6,6 +6,7 @@ import naitokikaku.sscoordinator.domain.model.event.EventFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -29,7 +30,7 @@ public class EventRegisterFormController {
 
     @GetMapping(params = "editing")
     public String editing(@ModelAttribute("event") Event event) {
-        return "event/register";
+        return "admin/event/register";
     }
 
     @Resource
@@ -37,13 +38,18 @@ public class EventRegisterFormController {
 
     @PostMapping
     public String post(@Valid @ModelAttribute("event") Event event, BindingResult binding, SessionStatus status) {
-        if (binding.hasErrors()) return "event/register";
+        if (binding.hasErrors()) return "admin/event/register";
         registerEvent.execute(event);
         status.setComplete();
         return "redirect:/";
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setAllowedFields(allowFields);
+    }
+
     private static String[] allowFields = new String[]{
-            "event.name.value"
+            "name.value"
     };
 }
