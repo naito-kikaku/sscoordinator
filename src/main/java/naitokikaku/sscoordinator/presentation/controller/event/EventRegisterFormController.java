@@ -57,7 +57,7 @@ public class EventRegisterFormController {
 
     @PostMapping
     public String post(@Valid @ModelAttribute("event") Event event, BindingResult binding, SessionStatus status) {
-        if (binding.hasErrors()) return "admin/event/register";
+        if (binding.hasErrors()) return "event/register";
         registerEvent.execute(event);
         status.setComplete();
         return "redirect:/";
