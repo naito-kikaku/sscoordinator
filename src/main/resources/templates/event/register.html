@@ -13,7 +13,7 @@
             <input placeholder="Event Name" type="text" th:field="*{name.value}"/>
         </div>
         <button class="ui primary button" type="submit">Save</button>
-        <button class="ui button" type="button" onclick="history.back()">Cancel</button>
+        <a class="ui button" th:href="@{${breadcrumb.beforePage().url}}">Cancel</a>
     </form>
 
 </div>

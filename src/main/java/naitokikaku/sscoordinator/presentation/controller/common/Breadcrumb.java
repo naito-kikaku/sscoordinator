@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @EqualsAndHashCode
@@ -23,5 +24,13 @@ public class Breadcrumb implements Serializable {
 
     public boolean isEmpty() {
         return list.isEmpty();
+    }
+
+    public PageInformation beforePage() {
+        List<PageInformation> reversed = new ArrayList<>(list);
+        Collections.reverse(reversed);
+        reversed.remove(0);
+        return reversed.get(0);
+
     }
 }
