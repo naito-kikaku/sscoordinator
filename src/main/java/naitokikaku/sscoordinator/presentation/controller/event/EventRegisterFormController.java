@@ -1,8 +1,11 @@
-package naitokikaku.sscoordinator.presentation.controller.admin.event;
+package naitokikaku.sscoordinator.presentation.controller.event;
 
-import naitokikaku.sscoordinator.application.usecase.admin.event.RegisterEvent;
+import naitokikaku.sscoordinator.application.usecase.event.RegisterEvent;
 import naitokikaku.sscoordinator.domain.model.event.Event;
 import naitokikaku.sscoordinator.domain.model.event.EventFactory;
+import naitokikaku.sscoordinator.presentation.controller.IndexController;
+import naitokikaku.sscoordinator.presentation.controller.common.Breadcrumb;
+import naitokikaku.sscoordinator.presentation.controller.common.PageInformation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,11 +15,27 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.Arrays;
 
 @Controller
 @RequestMapping("/event/register")
 @SessionAttributes("event")
 public class EventRegisterFormController {
+    public static final PageInformation INFO
+            = new PageInformation("Event Register", "/event/register", "book");
+
+    @ModelAttribute("pageInfo")
+    public PageInformation pageInfo() {
+        return EventRegisterFormController.INFO;
+    }
+
+    @ModelAttribute("breadcrumb")
+    public Breadcrumb breadcrumb() {
+        return new Breadcrumb(Arrays.asList(
+                IndexController.INFO,
+                EventRegisterFormController.INFO
+        ));
+    }
 
     @Resource
     EventFactory eventFactory;
@@ -30,7 +49,7 @@ public class EventRegisterFormController {
 
     @GetMapping(params = "editing")
     public String editing(@ModelAttribute("event") Event event) {
-        return "admin/event/register";
+        return "event/register";
     }
 
     @Resource

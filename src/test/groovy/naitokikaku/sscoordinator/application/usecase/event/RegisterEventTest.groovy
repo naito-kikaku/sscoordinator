@@ -1,4 +1,4 @@
-package naitokikaku.sscoordinator.application.usecase.admin.event
+package naitokikaku.sscoordinator.application.usecase.event
 
 import naitokikaku.sscoordinator.TestApplication
 import naitokikaku.sscoordinator.domain.model.event.Event

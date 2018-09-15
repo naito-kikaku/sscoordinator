@@ -1,0 +1,92 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/lib/semanticui/semantic.min.css}">
+    <link rel="stylesheet" th:href="@{/css/frame-customize.css}">
+    <script th:src="@{/lib/jquery/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/lib/semanticui/semantic.min.js}"></script>
+    <title th:text="${pageInfo.pageName}">Dummy Title</title>
+</head>
+
+<body>
+
+<nav th:fragment="menubar" class="ui fixed inverted menu">
+    <a href="#" th:href="@{/}" class="item">
+        <i class="calendar alternate outline icon"></i>
+        <span class="text">SS Coordinator</span>
+    </a>
+    <a href="#" class="item">
+        <i class="user icon"></i>
+    </a>
+    <a href="#" class="item">
+        <i class="bell icon"></i>
+    </a>
+</nav>
+
+<div class="ui main container">
+    <header th:fragment="page-header" class="ui header">
+        <div th:unless="${breadcrumb.isEmpty()}">
+            <div class="ui breadcrumb">
+                <th:block th:each="element, stat : ${breadcrumb.list}">
+                    <th:block th:unless="${stat.last}">
+                        <i class="icon" th:classappend="${element.iconName}"></i>
+                        <a class="section" th:text="${element.pageName}" th:href="@{${element.url}}">Home</a>
+                        <i class="right angle icon divider"></i>
+                    </th:block>
+                </th:block>
+            </div>
+            <div class="ui divider"></div>
+        </div>
+        <i class="icon" th:classappend="${pageInfo.iconName}"></i>
+        <div class="content">
+            <span th:text="${pageInfo.pageName}">Dummy Index</span>
+        </div>
+        <div class="ui divider"></div>
+    </header>
+
+    <div class="ui stackable three column grid">
+        <div class="column">
+            <div class="ui segment">
+                <h3 class="ui header">Usecase</h3>
+                <ul class="ui bulleted list">
+                    <li class="item"><a href="https://localhost:8080/event/register" th:href="@{/event/register}">event
+                        register</a></li>
+                    <li class="item"><a href="#">dummy1</a></li>
+                    <li class="item"><a href="#">dummy2</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui segment">
+                <h3 class="ui header">Dummy header</h3>
+                <ul class="ui bulleted list">
+                    <li class="item"><a href="#">dummy1</a></li>
+                    <li class="item"><a href="#">dummy2</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui segment">
+                <h3 class="ui header">Dummy header</h3>
+                <ul class="ui bulleted list">
+                    <li class="item"><a href="#">dummy1</a></li>
+                    <li class="item"><a href="#">dummy2</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:fragment="footer" class="ui vertical footer segment">
+    <div class="ui divider"></div>
+    <div class="ui center aligned container">
+        &copy; 2018 MIT license. produced By <a href="https://github.com/naito-kikaku">Naito-Kikaku</a>
+    </div>
+</footer>
+
+</body>
+</html>

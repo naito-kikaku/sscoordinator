@@ -1,4 +1,4 @@
-package naitokikaku.sscoordinator.presentation.controller.advice;
+package naitokikaku.sscoordinator.presentation;
 
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.web.bind.WebDataBinder;

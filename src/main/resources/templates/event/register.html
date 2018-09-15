@@ -1,0 +1,22 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/appframe :: head"></head>
+<body>
+<nav th:replace="fragment/appframe :: menubar"></nav>
+<div class="ui main container">
+    <header th:replace="fragment/appframe :: page-header"></header>
+
+    <form th:object="${event}" th:action="@{/event/register}" method="post" action="#" class="ui form">
+        <div class="field">
+            <label>name</label>
+            <input placeholder="Event Name" type="text" th:field="*{name.value}"/>
+        </div>
+        <button class="ui primary button" type="submit">Save</button>
+        <button class="ui button" type="button" onclick="history.back()">Cancel</button>
+    </form>
+
+</div>
+<footer th:replace="fragment/appframe :: footer"></footer>
+</body>
+</html>

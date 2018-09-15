@@ -1,4 +1,4 @@
-package naitokikaku.sscoordinator.presentation.controller.admin.event;
+package naitokikaku.sscoordinator.presentation.controller.event;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
