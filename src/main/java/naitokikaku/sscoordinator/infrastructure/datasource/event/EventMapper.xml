@@ -47,10 +47,21 @@
         VALUES (#{eventId.value}, #{eventRevisionId.value}, #{eventRevisionNumber.value})
     </insert>
 
-    <insert id="deleteLatestPointer">
+    <delete id="deleteLatestPointer">
         DELETE
         FROM event.latest_events
         WHERE event_id = #{event.id.value}
+    </delete>
+
+    <insert id="storeClosePointer">
+        INSERT INTO event.closed_events (event_id)
+        VALUES (#{eventId.value})
     </insert>
+
+    <delete id="deleteClosePointer">
+        DELETE
+        FROM event.closed_events
+        WHERE event_id = #{eventId.value}
+    </delete>
 
 </mapper>

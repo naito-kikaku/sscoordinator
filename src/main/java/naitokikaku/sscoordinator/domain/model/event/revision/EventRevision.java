@@ -2,6 +2,7 @@ package naitokikaku.sscoordinator.domain.model.event.revision;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import naitokikaku.sscoordinator.domain.model.event.status.EventStatus;
 import naitokikaku.sscoordinator.domain.model.fundamentals.datetime.CreatedDateTime;
 import naitokikaku.sscoordinator.domain.model.fundamentals.datetime.RevisedDateTime;
 
@@ -26,4 +27,5 @@ public class EventRevision implements Serializable {
     public RevisedDateTime revisedDateTime() {
         return revisedDateTime;
     }
+
 }

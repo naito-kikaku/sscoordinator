@@ -6,6 +6,7 @@ import naitokikaku.sscoordinator.domain.model.event.Event;
 import naitokikaku.sscoordinator.domain.model.event.EventName;
 import naitokikaku.sscoordinator.domain.model.event.identity.EventId;
 import naitokikaku.sscoordinator.domain.model.event.revision.EventRevision;
+import naitokikaku.sscoordinator.domain.model.event.status.EventStatus;
 
 import java.io.Serializable;
 
@@ -14,6 +15,7 @@ import java.io.Serializable;
 public class EventSnapshot implements Serializable {
     EventId eventId = new EventId();
     EventName eventName = new EventName();
+    EventStatus eventStatus = new EventStatus();
     EventRevision revision = new EventRevision();
 
     public EventId eventId() {
@@ -26,6 +28,10 @@ public class EventSnapshot implements Serializable {
 
     public EventRevision revision() {
         return revision;
+    }
+
+    public EventStatus eventStatus() {
+        return eventStatus;
     }
 
     public Event asEvent() {

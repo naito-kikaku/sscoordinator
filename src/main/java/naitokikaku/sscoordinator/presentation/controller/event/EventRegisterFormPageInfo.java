@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class EventRegisterFormPageInfo implements Serializable, PageInfo {
     PageName pageName = new PageName("Event Register");
     PageURL pageURL = new PageURL("/event/register");
-    IconName iconName = new IconName("book");
+    IconName iconName = new IconName("file");
 
     @Override
     public PageName pageName() {

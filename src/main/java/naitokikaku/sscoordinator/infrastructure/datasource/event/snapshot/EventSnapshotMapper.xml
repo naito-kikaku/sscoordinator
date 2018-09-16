@@ -8,6 +8,7 @@
     <resultMap id="EventSnapshot" type="naitokikaku.sscoordinator.domain.model.event.snapshot.EventSnapshot">
         <result property="eventId.value" column="event_id"/>
         <result property="eventName.value" column="event_name"/>
+        <result property="eventStatus.value" column="event_status"/>
         <result property="revision.revisionId.value" column="event_revision_id"/>
         <result property="revision.revisionNumber.value" column="event_revision_number"/>
         <result property="revision.createdDateTime.value" column="created_at"/>
@@ -35,6 +36,9 @@
         SELECT
             events.event_id,
             revisions.event_name,
+            CASE WHEN closed.event_id IS NULL THEN 'OPEN'
+                 ELSE 'CLOSED'
+            END as event_status,
             revisions.event_revision_id,
             revisions.event_revision_number,
             events.created_at,
@@ -42,6 +46,7 @@
         FROM event.latest_events latest
         JOIN event.event_revisions revisions ON latest.event_revision_id = revisions.event_revision_id
         JOIN event.events events ON latest.event_id = events.event_id
+        LEFT JOIN event.closed_events closed ON events.event_id = closed.event_id
         <include refid="where"/>
         ORDER BY events.event_id
         <bind name="limit" value="criteria.pagination().limit()"/>
@@ -53,6 +58,9 @@
         SELECT
             events.event_id,
             revisions.event_name,
+            CASE WHEN closed.event_id IS NULL THEN 'OPEN'
+                 ELSE 'CLOSED'
+            END as event_status,
             revisions.event_revision_id,
             revisions.event_revision_number,
             events.created_at,
@@ -60,6 +68,7 @@
         FROM event.latest_events latest
         JOIN event.event_revisions revisions ON latest.event_revision_id = revisions.event_revision_id
         JOIN event.events events ON latest.event_id = events.event_id
+        LEFT JOIN event.closed_events closed ON events.event_id = closed.event_id
         WHERE
             events.event_id = #{eventId.value}
     </select>

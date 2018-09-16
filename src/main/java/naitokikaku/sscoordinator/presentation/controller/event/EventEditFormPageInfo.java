@@ -18,7 +18,7 @@ public class EventEditFormPageInfo implements Serializable, PageInfo {
     EventEditFormPageInfo(EventId eventId) {
         this(new PageName("Event Edit"),
                 new PageURL("/event/" + eventId + "/edit"),
-                new IconName("home"));
+                new IconName("edit"));
     }
 
     private EventEditFormPageInfo(PageName pageName, PageURL pageURL, IconName iconName) {

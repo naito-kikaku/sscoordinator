@@ -32,4 +32,14 @@ public class EventDataSource implements EventRepository {
         mapper.deleteLatestPointer(event);
         mapper.storeLatestPointer(event.id(), eventRevisionId, eventRevisionNumber);
     }
+
+    @Override
+    public void close(EventId eventId) {
+        mapper.storeClosePointer(eventId);
+    }
+
+    @Override
+    public void reopen(EventId eventId) {
+        mapper.deleteClosePointer(eventId);
+    }
 }

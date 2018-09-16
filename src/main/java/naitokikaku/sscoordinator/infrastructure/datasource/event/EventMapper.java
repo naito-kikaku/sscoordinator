@@ -29,4 +29,7 @@ public interface EventMapper {
 
     void deleteLatestPointer(@Param("event") Event event);
 
+    void storeClosePointer(@Param("eventId") EventId eventId);
+
+    void deleteClosePointer(@Param("eventId") EventId eventId);
 }
