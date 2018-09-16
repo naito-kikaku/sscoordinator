@@ -2,6 +2,7 @@ package naitokikaku.sscoordinator.domain.model.event.criteria;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import naitokikaku.sscoordinator.domain.model.fundamentals.pagination.request.Page;
 import naitokikaku.sscoordinator.domain.model.fundamentals.pagination.request.PaginationRequest;
 
 import java.io.Serializable;
@@ -30,5 +31,9 @@ public class EventCriteria implements Serializable {
 
     public PaginationRequest pagination() {
         return pagination;
+    }
+
+    public EventCriteria rewrite(Page page) {
+        return new EventCriteria(likeEventName, pagination.rewrite(page));
     }
 }

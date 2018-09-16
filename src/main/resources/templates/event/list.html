@@ -30,14 +30,21 @@
         <tr>
             <th colspan="5">
                 <span th:text="|全 ${events.count()} 件|">全 10 件</span>
-                <div class="ui right floated pagination menu" th:if="${!events.isEmpty()}">
-                    <a href="#" class="icon item">
+                <div class="ui right floated pagination menu" th:if="${!events.isEmpty()}"
+                     th:with="pagination = ${events.pagination()}">
+                    <a href="#" class="icon item"
+                       th:href="${pagination.currentPage().isFirstPage()} ? '#' : @{/event/list(page=${pagination.currentPage().prev()})}"
+                       th:classappend="${pagination.currentPage().isFirstPage()} ? 'disabled': ''">
                         <i class="left chevron icon"></i>
                     </a>
-                    <th:block th:each="pageNumber : ${events.pagination().totalPageSize().sequence()}">
-                        <a href="#" class="item" th:text="${pageNumber}">1</a>
+                    <th:block th:each="page : ${pagination.pageSequence()}">
+                        <a href="#" class="item" th:text="${page}"
+                           th:href="${page.is(pagination.currentPage())} ? '#' : @{/event/list(page=${page})}"
+                           th:classappend="${page.is(pagination.currentPage())} ? 'disabled' : ''">1</a>
                     </th:block>
-                    <a href="#" class="icon item">
+                    <a href="#" class="icon item"
+                       th:href="${pagination.currentPageIsLast()} ? '#' : @{/event/list(page=${pagination.currentPage().next()})}"
+                       th:classappend="${pagination.currentPageIsLast()} ? 'disabled' : ''">
                         <i class="right chevron icon"></i>
                     </a>
                 </div>

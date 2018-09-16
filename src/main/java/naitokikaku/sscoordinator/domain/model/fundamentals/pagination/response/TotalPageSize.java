@@ -1,10 +1,10 @@
 package naitokikaku.sscoordinator.domain.model.fundamentals.pagination.response;
 
 import lombok.EqualsAndHashCode;
+import naitokikaku.sscoordinator.domain.model.fundamentals.pagination.request.Page;
 import naitokikaku.sscoordinator.domain.model.fundamentals.pagination.request.PageElementSize;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
@@ -23,10 +23,14 @@ public class TotalPageSize implements Serializable {
         return new TotalPageSize(totalPageSize.longValue());
     }
 
-    public List<Long> sequence() {
-        if (value == 1L) return Collections.singletonList(1L);
-        return LongStream.range(1, value).boxed()
+    public List<Page> pageSequence() {
+        return LongStream.rangeClosed(1, value).boxed()
+                .map(Page::new)
                 .collect(Collectors.toList());
+    }
+
+    public Page asPage() {
+        return new Page(value);
     }
 
     @Override

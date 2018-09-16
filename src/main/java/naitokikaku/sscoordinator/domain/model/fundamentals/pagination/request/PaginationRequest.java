@@ -30,4 +30,20 @@ public class PaginationRequest implements Serializable {
     public Long offset() {
         return (page.asLong() - 1L) * pageElementSize.asLong();
     }
+
+    public PaginationRequest rewrite(Page page) {
+        return new PaginationRequest(page, pageElementSize);
+    }
+
+    public Page currentPage() {
+        return page;
+    }
+
+    public Page prevPage() {
+        return page.prev();
+    }
+
+    public Page nextPage() {
+        return page.next();
+    }
 }

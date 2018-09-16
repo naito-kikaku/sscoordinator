@@ -23,7 +23,23 @@ public class Page implements Serializable {
     }
 
     public Long asLong() {
-        if(value == null) return 0L;
+        if (value == null) return 0L;
         return value;
+    }
+
+    public boolean isFirstPage() {
+        return asLong() == 1L;
+    }
+
+    public Page prev() {
+        return new Page(asLong() - 1);
+    }
+
+    public Page next() {
+        return new Page(asLong() + 1);
+    }
+
+    public boolean is(Page other) {
+        return this.equals(other);
     }
 }
