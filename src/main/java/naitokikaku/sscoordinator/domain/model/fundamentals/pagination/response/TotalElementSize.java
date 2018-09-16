@@ -18,7 +18,7 @@ public class TotalElementSize implements Serializable {
         return value.toString();
     }
 
-    public Double asDouble() {
+    Double asDouble() {
         if (value == null) return 0d;
         return value.doubleValue();
     }

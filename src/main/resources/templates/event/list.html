@@ -43,8 +43,8 @@
                            th:classappend="${page.is(pagination.currentPage())} ? 'disabled' : ''">1</a>
                     </th:block>
                     <a href="#" class="icon item"
-                       th:href="${pagination.currentPageIsLast()} ? '#' : @{/event/list(page=${pagination.currentPage().next()})}"
-                       th:classappend="${pagination.currentPageIsLast()} ? 'disabled' : ''">
+                       th:href="${pagination.currentPage().is(pagination.lastPage())} ? '#' : @{/event/list(page=${pagination.currentPage().next()})}"
+                       th:classappend="${pagination.currentPage().is(pagination.lastPage())} ? 'disabled' : ''">
                         <i class="right chevron icon"></i>
                     </a>
                 </div>

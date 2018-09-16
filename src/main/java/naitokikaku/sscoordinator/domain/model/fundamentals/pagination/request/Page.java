@@ -16,13 +16,7 @@ public class Page implements Serializable {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        if (value == null) return "";
-        return value.toString();
-    }
-
-    public Long asLong() {
+    Long asLong() {
         if (value == null) return 0L;
         return value;
     }
@@ -41,5 +35,11 @@ public class Page implements Serializable {
 
     public boolean is(Page other) {
         return this.equals(other);
+    }
+
+    @Override
+    public String toString() {
+        if (value == null) return "";
+        return value.toString();
     }
 }

@@ -38,12 +38,4 @@ public class PaginationRequest implements Serializable {
     public Page currentPage() {
         return page;
     }
-
-    public Page prevPage() {
-        return page.prev();
-    }
-
-    public Page nextPage() {
-        return page.next();
-    }
 }

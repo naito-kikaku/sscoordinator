@@ -16,12 +16,6 @@ public class PageElementSize implements Serializable {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        if (value == null) return "";
-        return value.toString();
-    }
-
     public boolean isZero() {
         return asDouble() == 0d;
     }
@@ -31,8 +25,14 @@ public class PageElementSize implements Serializable {
         return value.doubleValue();
     }
 
-    public Long asLong() {
+    Long asLong() {
         if (value == null) return 0L;
         return value;
+    }
+
+    @Override
+    public String toString() {
+        if (value == null) return "";
+        return value.toString();
     }
 }

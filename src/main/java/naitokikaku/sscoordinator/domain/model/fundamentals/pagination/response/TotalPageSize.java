@@ -23,13 +23,13 @@ public class TotalPageSize implements Serializable {
         return new TotalPageSize(totalPageSize.longValue());
     }
 
-    public List<Page> pageSequence() {
+    List<Page> pageSequence() {
         return LongStream.rangeClosed(1, value).boxed()
                 .map(Page::new)
                 .collect(Collectors.toList());
     }
 
-    public Page asPage() {
+    Page asPage() {
         return new Page(value);
     }
 

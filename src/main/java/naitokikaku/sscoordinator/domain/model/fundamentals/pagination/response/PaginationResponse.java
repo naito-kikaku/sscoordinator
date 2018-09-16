@@ -41,8 +41,4 @@ public class PaginationResponse implements Serializable {
                 .of(totalElementSize, request.pageElementSize())
                 .asPage();
     }
-
-    public boolean currentPageIsLast() {
-        return request.currentPage().is(lastPage());
-    }
 }
