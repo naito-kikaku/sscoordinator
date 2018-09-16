@@ -4,9 +4,9 @@ import naitokikaku.sscoordinator.application.usecase.event.SearchEvent;
 import naitokikaku.sscoordinator.domain.model.event.criteria.EventCriteria;
 import naitokikaku.sscoordinator.domain.model.event.snapshot.EventSnapshots;
 import naitokikaku.sscoordinator.domain.model.fundamentals.pagination.request.Page;
-import naitokikaku.sscoordinator.presentation.controller.IndexController;
+import naitokikaku.sscoordinator.presentation.controller.IndexPageInfo;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.Breadcrumb;
-import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageInformation;
+import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -19,19 +19,17 @@ import java.util.Arrays;
 @RequestMapping("/event/list")
 @SessionAttributes("eventCriteria")
 public class EventListController {
-    public static final PageInformation INFO
-            = new PageInformation("Event List", "/event/list", "folder open");
 
     @ModelAttribute("pageInfo")
-    public PageInformation pageInfo() {
-        return EventListController.INFO;
+    public PageInfo pageInfo() {
+        return new EventListFormPageInfo();
     }
 
     @ModelAttribute("breadcrumb")
     public Breadcrumb breadcrumb() {
         return new Breadcrumb(Arrays.asList(
-                IndexController.INFO,
-                EventListController.INFO
+                new IndexPageInfo(),
+                new EventListFormPageInfo()
         ));
     }
 

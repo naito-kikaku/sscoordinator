@@ -34,7 +34,7 @@
                 <th:block th:each="element, stat : ${breadcrumb.asList()}">
                     <th:block th:unless="${stat.last}">
                         <i class="icon" th:classappend="${element.iconName()}"></i>
-                        <a class="section" th:text="${element.pageName()}" th:href="@{${element.url()}}">Home</a>
+                        <a class="section" th:text="${element.pageName()}" th:href="@{${element.pageURL()}}">Home</a>
                         <i class="right angle icon divider"></i>
                     </th:block>
                 </th:block>
@@ -54,10 +54,10 @@
                 <h3 class="ui header">Usecase</h3>
                 <ul class="ui bulleted list">
                     <li class="item">
-                        <a href="https://localhost:8080/event/register" th:href="@{/event/register}">event register</a>
+                        <a href="#" th:href="@{/event/register}"><i class="book icon"></i>イベント登録</a>
                     </li>
                     <li class="item">
-                        <a href="https://localhost:8080/event/list" th:href="@{/event/list}">event list</a>
+                        <a href="#" th:href="@{/event/list}"><i class="folder open icon"></i>イベント一覧</a>
                     </li>
                 </ul>
             </div>

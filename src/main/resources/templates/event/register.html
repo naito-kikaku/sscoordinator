@@ -7,13 +7,13 @@
 <div class="ui main container">
     <header th:replace="fragment/appframe :: page-header"></header>
 
-    <form th:object="${event}" th:action="@{${pageInfo.url()}}" method="post" action="#" class="ui form">
+    <form th:object="${event}" th:action="@{${pageInfo.pageURL()}}" method="post" action="#" class="ui form">
         <div class="required field">
             <label>Event Name</label>
             <input placeholder="Event Name" type="text" th:field="*{name.value}"/>
         </div>
         <button class="ui primary button" type="submit">Save</button>
-        <a class="ui button" th:href="@{${breadcrumb.beforePage().url()}}">Cancel</a>
+        <a class="ui button" th:href="@{${breadcrumb.beforePage().pageURL()}}">Cancel</a>
     </form>
 
 </div>

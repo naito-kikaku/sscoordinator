@@ -3,9 +3,9 @@ package naitokikaku.sscoordinator.presentation.controller.event;
 import naitokikaku.sscoordinator.application.usecase.event.RegisterEvent;
 import naitokikaku.sscoordinator.domain.model.event.Event;
 import naitokikaku.sscoordinator.domain.model.event.EventFactory;
-import naitokikaku.sscoordinator.presentation.controller.IndexController;
+import naitokikaku.sscoordinator.presentation.controller.IndexPageInfo;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.Breadcrumb;
-import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageInformation;
+import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,19 +21,17 @@ import java.util.Arrays;
 @RequestMapping("/event/register")
 @SessionAttributes("event")
 public class EventRegisterFormController {
-    public static final PageInformation INFO
-            = new PageInformation("Event Register", "/event/register", "book");
 
     @ModelAttribute("pageInfo")
-    public PageInformation pageInfo() {
-        return EventRegisterFormController.INFO;
+    public PageInfo pageInfo() {
+        return new EventRegisterFormPageInfo();
     }
 
     @ModelAttribute("breadcrumb")
     public Breadcrumb breadcrumb() {
         return new Breadcrumb(Arrays.asList(
-                IndexController.INFO,
-                EventRegisterFormController.INFO
+                new IndexPageInfo(),
+                new EventRegisterFormPageInfo()
         ));
     }
 
