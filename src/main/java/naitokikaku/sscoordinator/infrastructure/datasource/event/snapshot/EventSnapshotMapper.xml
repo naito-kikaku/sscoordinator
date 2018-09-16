@@ -49,4 +49,19 @@
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
+    <select id="findById" resultMap="EventSnapshot">
+        SELECT
+            events.event_id,
+            revisions.event_name,
+            revisions.event_revision_id,
+            revisions.event_revision_number,
+            events.created_at,
+            revisions.revised_at
+        FROM event.latest_events latest
+        JOIN event.event_revisions revisions ON latest.event_revision_id = revisions.event_revision_id
+        JOIN event.events events ON latest.event_id = events.event_id
+        WHERE
+            events.event_id = #{eventId.value}
+    </select>
+
 </mapper>

@@ -1,8 +1,8 @@
 package naitokikaku.sscoordinator.presentation.controller.fundamentals;
 
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.ToString;
+import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageInformation;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,7 +11,6 @@ import java.util.List;
 
 @EqualsAndHashCode
 @ToString
-@Getter
 public class Breadcrumb implements Serializable {
     List<PageInformation> list = new ArrayList<>();
 
@@ -32,5 +31,9 @@ public class Breadcrumb implements Serializable {
         reversed.remove(0);
         return reversed.get(0);
 
+    }
+
+    public List<PageInformation> asList() {
+        return Collections.unmodifiableList(list);
     }
 }

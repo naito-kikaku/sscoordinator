@@ -10,6 +10,7 @@
     <table class="ui celled table">
         <thead>
         <tr>
+            <th></th>
             <th>Event ID</th>
             <th>Event Name</th>
             <th>Revision Number</th>
@@ -19,16 +20,20 @@
         </thead>
         <tbody>
         <tr th:each="event : ${events.asList()}">
+            <td>
+                <a href="#" class="ui primary button"
+                   th:href="@{/event/{eventId}/edit(eventId=${event.eventId()})}">Edit</a>
+            </td>
             <td th:text="${event.eventId()}">1</td>
             <td th:text="${event.eventName()}">1</td>
             <td th:text="${event.revision().revisionNumber()}">1</td>
-            <td th:text="${event.revision().createdDateTime().format()}">1</td>
             <td th:text="${event.revision().revisedDateTime().format()}">1</td>
+            <td th:text="${event.revision().createdDateTime().format()}">1</td>
         </tr>
         </tbody>
         <tfoot>
         <tr>
-            <th colspan="5">
+            <th colspan="6">
                 <span th:text="|全 ${events.count()} 件|">全 10 件</span>
                 <div class="ui right floated pagination menu" th:if="${!events.isEmpty()}"
                      th:with="pagination = ${events.pagination()}">

@@ -8,6 +8,10 @@
     <header th:replace="fragment/appframe :: page-header"></header>
 
     <form th:object="${event}" th:action="@{${pageInfo.url()}}" method="post" action="#" class="ui form">
+        <div class="field">
+            <label>Event ID</label>
+            <span th:text="${event.id()}">1</span>
+        </div>
         <div class="required field">
             <label>Event Name</label>
             <input placeholder="Event Name" type="text" th:field="*{name.value}"/>

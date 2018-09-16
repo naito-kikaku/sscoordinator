@@ -6,7 +6,7 @@ import naitokikaku.sscoordinator.domain.model.event.snapshot.EventSnapshots;
 import naitokikaku.sscoordinator.domain.model.fundamentals.pagination.request.Page;
 import naitokikaku.sscoordinator.presentation.controller.IndexController;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.Breadcrumb;
-import naitokikaku.sscoordinator.presentation.controller.fundamentals.PageInformation;
+import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageInformation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;

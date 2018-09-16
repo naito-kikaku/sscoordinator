@@ -19,8 +19,10 @@ public class EventSnapshotDataSource implements EventSnapshotRepository {
 
     @Override
     public EventSnapshot get(EventId eventId) {
-        // TODO impl
-        return null;
+        if (eventId.isEmpty()) throw new IllegalArgumentException();
+        EventSnapshot eventSnapshot = mapper.findById(eventId);
+        if (eventSnapshot == null) throw new IllegalArgumentException();
+        return eventSnapshot;
     }
 
     @Override

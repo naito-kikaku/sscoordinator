@@ -13,7 +13,8 @@
         <result property="value" column="next_event_revision_id"/>
     </resultMap>
 
-    <resultMap id="EventRevisionNumber" type="naitokikaku.sscoordinator.domain.model.event.revision.EventRevisionNumber">
+    <resultMap id="EventRevisionNumber"
+               type="naitokikaku.sscoordinator.domain.model.event.revision.EventRevisionNumber">
         <result property="value" column="next_event_revision_number"/>
     </resultMap>
 
@@ -28,7 +29,7 @@
     <select id="nextEventRevisionNumber" resultMap="EventRevisionNumber">
         SELECT event_revision_number + 1 as next_event_revision_number
         FROM event.latest_events
-        WHERE event_id = #{eventId.value}
+        WHERE event_id = #{event.id.value}
     </select>
 
     <insert id="store">
@@ -44,6 +45,12 @@
     <insert id="storeLatestPointer">
         INSERT INTO event.latest_events (event_id, event_revision_id, event_revision_number)
         VALUES (#{eventId.value}, #{eventRevisionId.value}, #{eventRevisionNumber.value})
+    </insert>
+
+    <insert id="deleteLatestPointer">
+        DELETE
+        FROM event.latest_events
+        WHERE event_id = #{event.id.value}
     </insert>
 
 </mapper>

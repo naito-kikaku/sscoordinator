@@ -14,7 +14,7 @@ public interface EventMapper {
 
     EventRevisionId nextEventRevisionId();
 
-    EventRevisionNumber nextEventRevisionNumber(@Param("eventId") EventId eventId);
+    EventRevisionNumber nextEventRevisionNumber(@Param("event") Event event);
 
     void store(@Param("eventId") EventId eventId);
 
@@ -27,5 +27,6 @@ public interface EventMapper {
                             @Param("eventRevisionId") EventRevisionId eventRevisionId,
                             @Param("eventRevisionNumber") EventRevisionNumber eventRevisionNumber);
 
+    void deleteLatestPointer(@Param("event") Event event);
 
 }

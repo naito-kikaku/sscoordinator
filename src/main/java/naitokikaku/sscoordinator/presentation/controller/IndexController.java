@@ -1,7 +1,7 @@
 package naitokikaku.sscoordinator.presentation.controller;
 
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.Breadcrumb;
-import naitokikaku.sscoordinator.presentation.controller.fundamentals.PageInformation;
+import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageInformation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;

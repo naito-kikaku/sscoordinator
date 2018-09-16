@@ -23,4 +23,12 @@ public class Event implements Serializable {
         this.id = id;
         this.name = name;
     }
+
+    public EventId id() {
+        return id;
+    }
+
+    public EventName name() {
+        return name;
+    }
 }

@@ -1,14 +1,12 @@
-package naitokikaku.sscoordinator.presentation.controller.fundamentals;
+package naitokikaku.sscoordinator.presentation.controller.fundamentals.page;
 
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.ToString;
 
 import java.io.Serializable;
 
 @EqualsAndHashCode
 @ToString
-@Getter
 public class PageInformation implements Serializable {
     String pageName;
     String url;
@@ -18,5 +16,17 @@ public class PageInformation implements Serializable {
         this.pageName = pageName;
         this.url = url;
         this.iconName = iconName;
+    }
+
+    public String pageName() {
+        return pageName;
+    }
+
+    public String url() {
+        return url;
+    }
+
+    public String iconName() {
+        return iconName;
     }
 }

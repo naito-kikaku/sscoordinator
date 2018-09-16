@@ -5,7 +5,7 @@ import naitokikaku.sscoordinator.domain.model.event.Event;
 import naitokikaku.sscoordinator.domain.model.event.EventFactory;
 import naitokikaku.sscoordinator.presentation.controller.IndexController;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.Breadcrumb;
-import naitokikaku.sscoordinator.presentation.controller.fundamentals.PageInformation;
+import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageInformation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
