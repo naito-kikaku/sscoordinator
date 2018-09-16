@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import naitokikaku.sscoordinator.domain.model.event.identity.EventId;
 
 import javax.validation.Valid;
 import java.io.Serializable;
@@ -12,13 +13,15 @@ import java.io.Serializable;
 @ToString
 @Getter
 public class Event implements Serializable {
+    EventId id = new EventId();
     @Valid
     EventName name = new EventName();
 
     public Event() {
     }
 
-    public Event(EventName name) {
+    public Event(EventId id, EventName name) {
+        this.id = id;
         this.name = name;
     }
 }

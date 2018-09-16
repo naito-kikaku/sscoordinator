@@ -22,7 +22,7 @@
     </select>
 
     <select id="nextEventRevisionId" resultMap="EventRevisionId">
-        SELECT nextval('event.event_sequence_number') as next_event_revision_id
+        SELECT nextval('event.event_revision_sequence_number') as next_event_revision_id
     </select>
 
     <select id="nextEventRevisionNumber" resultMap="EventRevisionNumber">
