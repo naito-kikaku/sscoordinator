@@ -13,9 +13,14 @@
             <span th:text="${event.id()}">1</span>
         </div>
         <div class="required field">
-            <label>Event Name</label>
-            <input placeholder="Event Name" type="text" th:field="*{name.value}"/>
+            <label>Name</label>
+            <input placeholder="Name" type="text" th:field="*{name.value}"/>
         </div>
+        <div class="field">
+            <label>Description</label>
+            <textarea placeholder="Description" th:field="*{description.value}"></textarea>
+        </div>
+
         <button class="ui primary button" type="submit">Save</button>
         <a class="ui button" th:href="@{${breadcrumb.beforePage().pageURL()}}">Cancel</a>
     </form>

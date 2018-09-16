@@ -67,6 +67,7 @@ public class EventRegisterFormController {
     }
 
     private static String[] allowFields = new String[]{
-            "name.value"
+            "name.value",
+            "description.value"
     };
 }

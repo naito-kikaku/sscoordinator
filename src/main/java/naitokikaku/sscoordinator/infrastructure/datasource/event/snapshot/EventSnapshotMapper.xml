@@ -8,6 +8,7 @@
     <resultMap id="EventSnapshot" type="naitokikaku.sscoordinator.domain.model.event.snapshot.EventSnapshot">
         <result property="eventId.value" column="event_id"/>
         <result property="eventName.value" column="event_name"/>
+        <result property="eventDescription.value" column="event_description"/>
         <result property="eventStatus.value" column="event_status"/>
         <result property="revision.revisionId.value" column="event_revision_id"/>
         <result property="revision.revisionNumber.value" column="event_revision_number"/>
@@ -17,9 +18,10 @@
 
     <sql id="where">
         <where>
-            <if test="criteria.likeEventName.hasValue()">
-                <bind name="likeEventName" value="criteria.likeEventName().queryText()"/>
-                revisions.event_name LIKE #{likeEventName}
+            <if test="criteria.likeEventNameOrDescription.hasValue()">
+                <bind name="likeEventNameOrDescription" value="criteria.likeEventNameOrDescription().queryText()"/>
+                revisions.event_name LIKE #{likeEventNameOrDescription}
+                OR revisions.event_description LIKE #{likeEventNameOrDescription}
             </if>
         </where>
     </sql>
@@ -36,6 +38,7 @@
         SELECT
             events.event_id,
             revisions.event_name,
+            revisions.event_description,
             CASE WHEN closed.event_id IS NULL THEN 'OPEN'
                  ELSE 'CLOSED'
             END as event_status,
@@ -58,6 +61,7 @@
         SELECT
             events.event_id,
             revisions.event_name,
+            revisions.event_description,
             CASE WHEN closed.event_id IS NULL THEN 'OPEN'
                  ELSE 'CLOSED'
             END as event_status,

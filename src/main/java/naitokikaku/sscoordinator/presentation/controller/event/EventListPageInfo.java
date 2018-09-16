@@ -9,7 +9,7 @@ import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageU
 import java.io.Serializable;
 
 @EqualsAndHashCode
-public class EventListFormPageInfo implements Serializable, PageInfo {
+public class EventListPageInfo implements Serializable, PageInfo {
     PageName pageName = new PageName("Event List");
     PageURL pageURL = new PageURL("/event/list");
     IconName iconName = new IconName("folder open");

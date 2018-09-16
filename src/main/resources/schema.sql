@@ -13,6 +13,7 @@ CREATE TABLE event.event_revisions (
   event_id              BIGINT       NOT NULL,
   event_revision_number BIGINT       NOT NULL,
   event_name            VARCHAR(128) NOT NULL,
+  event_description     TEXT,
   revised_at            TIMESTAMP    NOT NULL DEFAULT NOW(),
   CONSTRAINT pk_event_revisions PRIMARY KEY (event_revision_id),
   CONSTRAINT fk_event_revisions_to_parent FOREIGN KEY (event_id) REFERENCES event.events (event_id)

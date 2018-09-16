@@ -38,8 +38,8 @@
     </insert>
 
     <insert id="storeRevision">
-        INSERT INTO event.event_revisions (event_revision_id, event_id, event_revision_number, event_name)
-        VALUES (#{eventRevisionId.value}, #{eventId.value}, #{eventRevisionNumber.value}, #{event.name.value})
+        INSERT INTO event.event_revisions (event_revision_id, event_id, event_revision_number, event_name, event_description)
+        VALUES (#{eventRevisionId.value}, #{eventId.value}, #{eventRevisionNumber.value}, #{event.name.value}, #{event.description.value})
     </insert>
 
     <insert id="storeLatestPointer">

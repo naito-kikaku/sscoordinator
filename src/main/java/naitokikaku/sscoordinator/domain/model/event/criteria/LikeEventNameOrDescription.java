@@ -7,13 +7,13 @@ import org.springframework.util.StringUtils;
 import java.io.Serializable;
 
 @EqualsAndHashCode
-public class LikeEventName implements Serializable {
+public class LikeEventNameOrDescription implements Serializable {
     String value;
 
-    public LikeEventName() {
+    public LikeEventNameOrDescription() {
     }
 
-    public LikeEventName(String value) {
+    public LikeEventNameOrDescription(String value) {
         this.value = value;
     }
 

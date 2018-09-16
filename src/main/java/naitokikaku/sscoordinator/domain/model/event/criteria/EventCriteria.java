@@ -10,23 +10,23 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @ToString
 public class EventCriteria implements Serializable {
-    LikeEventName likeEventName = new LikeEventName();
+    LikeEventNameOrDescription likeEventNameOrDescription = new LikeEventNameOrDescription();
     PaginationRequest pagination = new PaginationRequest();
 
     public EventCriteria() {
     }
 
-    public EventCriteria(LikeEventName likeEventName) {
-        this(likeEventName, new PaginationRequest());
+    public EventCriteria(LikeEventNameOrDescription likeEventNameOrDescription) {
+        this(likeEventNameOrDescription, new PaginationRequest());
     }
 
-    public EventCriteria(LikeEventName likeEventName, PaginationRequest pagination) {
-        this.likeEventName = likeEventName;
+    public EventCriteria(LikeEventNameOrDescription likeEventNameOrDescription, PaginationRequest pagination) {
+        this.likeEventNameOrDescription = likeEventNameOrDescription;
         this.pagination = pagination;
     }
 
-    public LikeEventName likeEventName() {
-        return likeEventName;
+    public LikeEventNameOrDescription likeEventNameOrDescription() {
+        return likeEventNameOrDescription;
     }
 
     public PaginationRequest pagination() {
@@ -34,6 +34,6 @@ public class EventCriteria implements Serializable {
     }
 
     public EventCriteria rewrite(Page page) {
-        return new EventCriteria(likeEventName, pagination.rewrite(page));
+        return new EventCriteria(likeEventNameOrDescription, pagination.rewrite(page));
     }
 }

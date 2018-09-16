@@ -22,14 +22,14 @@ public class EventListController {
 
     @ModelAttribute("pageInfo")
     public PageInfo pageInfo() {
-        return new EventListFormPageInfo();
+        return new EventListPageInfo();
     }
 
     @ModelAttribute("breadcrumb")
     public Breadcrumb breadcrumb() {
         return new Breadcrumb(Arrays.asList(
                 new IndexPageInfo(),
-                new EventListFormPageInfo()
+                new EventListPageInfo()
         ));
     }
 
@@ -55,11 +55,26 @@ public class EventListController {
         return "event/list";
     }
 
+    @PostMapping
+    public String search(@ModelAttribute("eventCriteria") EventCriteria criteria, Model model) {
+        EventSnapshots events = searchEvent.execute(criteria);
+        model.addAttribute("events", events);
+        return "event/list";
+    }
+
+    @GetMapping(params = {"clear"})
+    public String clear(Model model) {
+        model.addAttribute("eventCriteria", criteria());
+        return "redirect:/event/list";
+    }
+
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.setAllowedFields(allowFields);
     }
 
     private static String[] allowFields = new String[]{
+            "likeEventNameOrDescription.value"
     };
 }

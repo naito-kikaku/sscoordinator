@@ -15,13 +15,15 @@ public class Event implements Serializable {
     EventId id = new EventId();
     @Valid
     EventName name = new EventName();
+    EventDescription description = new EventDescription();
 
     public Event() {
     }
 
-    public Event(EventId id, EventName name) {
+    public Event(EventId id, EventName name, EventDescription description) {
         this.id = id;
         this.name = name;
+        this.description = description;
     }
 
     public EventId id() {
@@ -30,5 +32,9 @@ public class Event implements Serializable {
 
     public EventName name() {
         return name;
+    }
+
+    public EventDescription description() {
+        return description;
     }
 }

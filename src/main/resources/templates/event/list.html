@@ -4,17 +4,30 @@
 <head th:replace="fragment/appframe :: head"></head>
 <body>
 <nav th:replace="fragment/appframe :: menubar"></nav>
+
 <div class="ui main container">
     <header th:replace="fragment/appframe :: page-header"></header>
+
+    <form th:object="${eventCriteria}" th:action="@{${pageInfo.pageURL()}}" method="post" action="#" class="ui form">
+        <div class="ui action input">
+            <input type="text" placeholder="name or description" th:field="*{likeEventNameOrDescription.value}">
+            <div class="ui buttons">
+                <button class="ui primary button">Search</button>
+                <div class="or"></div>
+                <a class="ui button" th:href="@{/event/list?clear}">Clear</a>
+            </div>
+        </div>
+    </form>
 
     <table class="ui celled table">
         <thead>
         <tr>
             <th></th>
-            <th>Event ID</th>
-            <th>Event Name</th>
-            <th>Event Status</th>
-            <th>Revision Number</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Version</th>
             <th>Revised At</th>
             <th>Created At</th>
         </tr>
@@ -38,16 +51,24 @@
                 </th:block>
             </td>
             <td th:text="${event.eventId()}">1</td>
-            <td th:text="${event.eventName()}">1</td>
-            <td th:text="${event.eventStatus()}">1</td>
+            <td th:text="${event.eventName()}">name</td>
+            <td th:with="sentence = ${event.eventDescription().toString()}">
+                <th:block th:if="${sentence}">
+                    <th:block th:each="str, stat : ${sentence.split('\r\n|\r|\n', -1)}">
+                        <th:block th:text="${str}"/>
+                        <br th:if="${!stat.last}"/>
+                    </th:block>
+                </th:block>
+            </td>
+            <td th:text="${event.eventStatus()}">status</td>
             <td th:text="${event.revision().revisionNumber()}">1</td>
-            <td th:text="${event.revision().revisedDateTime().format()}">1</td>
-            <td th:text="${event.revision().createdDateTime().format()}">1</td>
+            <td th:text="${event.revision().revisedDateTime().format()}">2018/09/17 02:14:02</td>
+            <td th:text="${event.revision().createdDateTime().format()}">2018/09/17 02:14:02</td>
         </tr>
         </tbody>
         <tfoot>
         <tr>
-            <th colspan="7">
+            <th colspan="8">
                 <span th:text="|全 ${events.count()} 件|">全 10 件</span>
                 <div class="ui right floated pagination menu" th:if="${!events.isEmpty()}"
                      th:with="pagination = ${events.pagination()}">

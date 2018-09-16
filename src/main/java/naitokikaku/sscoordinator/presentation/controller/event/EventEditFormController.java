@@ -33,7 +33,7 @@ public class EventEditFormController {
     public Breadcrumb breadcrumb(@PathVariable("id") EventId eventId) {
         return new Breadcrumb(Arrays.asList(
                 new IndexPageInfo(),
-                new EventListFormPageInfo(),
+                new EventListPageInfo(),
                 new EventEditFormPageInfo(eventId)
         ));
     }
@@ -71,7 +71,8 @@ public class EventEditFormController {
     }
 
     private static String[] allowFields = new String[]{
-            "name.value"
+            "name.value",
+            "description.value"
     };
 
 }
