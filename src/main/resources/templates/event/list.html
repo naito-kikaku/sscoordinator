@@ -19,11 +19,11 @@
         </thead>
         <tbody>
         <tr th:each="event : ${events.asList()}">
-            <td th:text="${event.eventId}">1</td>
-            <td th:text="${event.eventName}">1</td>
-            <td th:text="${event.revision.revisionNumber}">1</td>
-            <td th:text="${event.revision.createdDateTime.format()}">1</td>
-            <td th:text="${event.revision.revisedDateTime.format()}">1</td>
+            <td th:text="${event.eventId()}">1</td>
+            <td th:text="${event.eventName()}">1</td>
+            <td th:text="${event.revision().revisionNumber()}">1</td>
+            <td th:text="${event.revision().createdDateTime().format()}">1</td>
+            <td th:text="${event.revision().revisedDateTime().format()}">1</td>
         </tr>
         </tbody>
         <tfoot>

@@ -1,13 +1,11 @@
 package naitokikaku.sscoordinator.presentation.controller;
 
-import naitokikaku.sscoordinator.presentation.controller.common.Breadcrumb;
-import naitokikaku.sscoordinator.presentation.controller.common.PageInformation;
+import naitokikaku.sscoordinator.presentation.controller.fundamentals.Breadcrumb;
+import naitokikaku.sscoordinator.presentation.controller.fundamentals.PageInformation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Collections;
 
 @Controller
 @RequestMapping("/")

@@ -1,4 +1,4 @@
-package naitokikaku.sscoordinator.presentation.controller.common;
+package naitokikaku.sscoordinator.presentation.controller.fundamentals;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

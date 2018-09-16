@@ -11,7 +11,6 @@ import java.io.Serializable;
 
 @EqualsAndHashCode
 @ToString
-@Getter
 public class Event implements Serializable {
     EventId id = new EventId();
     @Valid

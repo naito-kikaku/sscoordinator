@@ -5,10 +5,11 @@ import naitokikaku.sscoordinator.domain.model.event.criteria.EventCriteria;
 import naitokikaku.sscoordinator.domain.model.event.snapshot.EventSnapshots;
 import naitokikaku.sscoordinator.domain.model.fundamentals.pagination.request.Page;
 import naitokikaku.sscoordinator.presentation.controller.IndexController;
-import naitokikaku.sscoordinator.presentation.controller.common.Breadcrumb;
-import naitokikaku.sscoordinator.presentation.controller.common.PageInformation;
+import naitokikaku.sscoordinator.presentation.controller.fundamentals.Breadcrumb;
+import naitokikaku.sscoordinator.presentation.controller.fundamentals.PageInformation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -55,4 +56,12 @@ public class EventListController {
         model.addAttribute("events", events);
         return "event/list";
     }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setAllowedFields(allowFields);
+    }
+
+    private static String[] allowFields = new String[]{
+    };
 }

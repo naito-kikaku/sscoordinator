@@ -7,7 +7,6 @@ import org.springframework.util.StringUtils;
 import java.io.Serializable;
 
 @EqualsAndHashCode
-@Getter
 public class LikeEventName implements Serializable {
     String value;
 
