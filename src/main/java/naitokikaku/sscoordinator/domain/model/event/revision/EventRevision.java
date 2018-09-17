@@ -17,8 +17,8 @@ public class EventRevision implements Serializable {
 
     public String asText() {
         String createdAt = String.format("Created at %s", createdDateTime.format());
-        if (revisionNumber.isFirst()) return createdAt;
+        if (revisionNumber.isFirst()) return String.format("%s, %s", revisionNumber.asText(), createdAt);
         String lastRevisedAt = String.format("Last Revised at %s", revisedDateTime.format());
-        return String.format("%s, %s", lastRevisedAt, createdAt);
+        return String.format("%s, %s, %s", revisionNumber.asText(), lastRevisedAt, createdAt);
     }
 }

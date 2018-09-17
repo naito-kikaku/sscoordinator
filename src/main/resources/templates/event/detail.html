@@ -11,24 +11,12 @@
         <section class="ui black segment">
             <div class="ui two column stackable grid">
                 <div class="column">
-                    <h3 class="header" th:text="${event.eventName()}">Event Name</h3>
+                    <h3 class="header" th:text="|${event.eventId().asText()} ${event.eventName()}|">#1 Event Name</h3>
                 </div>
                 <div class="column" th:if="${event.eventStatus().isOpen()}">
                     <div class="ui right floated buttons">
                         <a href="#" class="ui primary button"
                            th:href="@{/event/{eventId}/edit(eventId=${event.eventId()})}">Edit</a>
-                        <button class="ui button" type="button"
-                                th:onclick="|$.post('@{/api/event/{eventId}/close(eventId=${event.eventId()})}', function(data){location.reload();})|">
-                            Close
-                        </button>
-                    </div>
-                </div>
-                <div class="column" th:if="${event.eventStatus().isClosed()}">
-                    <div class="ui right floated buttons">
-                        <button class="ui button" type="button"
-                                th:onclick="|$.post('@{/api/event/{eventId}/reopen(eventId=${event.eventId()})}', function(data){location.reload();})|">
-                            Reopen
-                        </button>
                     </div>
                 </div>
             </div>
@@ -37,14 +25,26 @@
             <span th:utext="${event.eventDescription().asHTMLText()}"></span>
         </section>
         <section class="ui segment">
-            <span th:text="${event.eventId().asText()} "></span>
-            <div class="ui label" th:text="${event.eventStatus().asText()} "></div>
-        </section>
-        <section class="ui segment">
+            <span class="ui label" th:text="${event.eventStatus().asText()} "></span>
             <span th:text="${event.revision().asText()}"></span>
         </section>
     </article>
-
+    <div th:if="${event.eventStatus().isOpen()}">
+        <div class="ui buttons">
+            <button class="ui button" type="button"
+                    th:onclick="|$.post('@{/api/event/{eventId}/close(eventId=${event.eventId()})}', function(data){location.reload();})|">
+                Close
+            </button>
+        </div>
+    </div>
+    <div th:if="${event.eventStatus().isClosed()}">
+        <div class="ui buttons">
+            <button class="ui button" type="button"
+                    th:onclick="|$.post('@{/api/event/{eventId}/reopen(eventId=${event.eventId()})}', function(data){location.reload();})|">
+                Reopen
+            </button>
+        </div>
+    </div>
 </div>
 <footer th:replace="fragment/appframe :: footer"></footer>
 </body>

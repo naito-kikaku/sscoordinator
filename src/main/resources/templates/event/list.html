@@ -2,30 +2,143 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragment/appframe :: head"></head>
+<script>
+    $(function () {
+        function showTable() {
+            $('#loading').hide();
+            $('#event-table').show();
+            $('#event-article').hide();
+            localStorage.setItem('event-table-enable', 'true');
+            localStorage.setItem('event-article-enable', 'false');
+        }
+
+        function showArticle() {
+            $('#loading').hide();
+            $('#event-article').show();
+            $('#event-table').hide();
+            localStorage.setItem('event-article-enable', 'true');
+            localStorage.setItem('event-table-enable', 'false');
+        }
+
+        // event binding
+        $('#show-list-button').click(function () {
+            showArticle();
+        });
+        $('#show-table-button').click(function () {
+            showTable();
+        });
+
+        // initial show
+        // レスポンスが早すぎるとチラつきが逆に目障りなので描画を少し遅らせる
+        setTimeout(function () {
+            var eventTableEnable = localStorage.getItem('event-table-enable') === 'true';
+            if (eventTableEnable) {
+                showTable();
+            } else {
+                showArticle();
+            }
+        }, 500);
+    });
+</script>
 <body>
 <nav th:replace="fragment/appframe :: menubar"></nav>
 
 <div class="ui main container">
     <header th:replace="fragment/appframe :: page-header"></header>
 
-    <form th:object="${eventCriteria}" th:action="@{${pageInfo.pageURL()}}" method="post" action="#" class="ui form">
-        <div class="ui action input">
-            <input type="text" placeholder="name or description" th:field="*{likeEventNameOrDescription.value}">
-            <div class="ui buttons">
-                <button class="ui primary button">Search</button>
-                <div class="or"></div>
-                <a class="ui button" th:href="@{/event/list?clear}">Clear</a>
+    <section class="ui two column grid">
+        <section class="column">
+            <form th:object="${eventCriteria}" th:action="@{${pageInfo.pageURL()}}" method="post" action="#"
+                  class="ui form">
+                <div class="ui input">
+                    <input type="text" placeholder="name or description" th:field="*{likeEventNameOrDescription.value}">
+                </div>
+                <div class="ui buttons">
+                    <button class="ui primary button">Search</button>
+                    <div class="or"></div>
+                    <a class="ui button" th:href="@{/event/list?clear}">Clear</a>
+                </div>
+            </form>
+        </section>
+        <section class="column">
+            <div class="ui basic icon buttons right floated">
+                <button id="show-list-button" class="ui left attached button"><i class="th list icon"></i></button>
+                <button id="show-table-button" class="ui right attached button"><i class="table icon"></i></button>
             </div>
-        </div>
-    </form>
+        </section>
+    </section>
 
-    <table class="ui celled table">
+    <div class="ui menu">
+        <span class="item" th:text="|全 ${events.count()} 件|">全 10 件</span>
+        <div class="ui right floated pagination menu" th:if="${!events.isEmpty()}"
+             th:with="pagination = ${events.pagination()}">
+            <a href="#" class="icon item"
+               th:href="${pagination.currentPage().isFirstPage()} ? '#' : @{/event/list(page=${pagination.currentPage().prev()})}"
+               th:classappend="${pagination.currentPage().isFirstPage()} ? 'disabled': ''">
+                <i class="left chevron icon"></i>
+            </a>
+            <th:block th:each="page : ${pagination.pageSequence()}">
+                <a href="#" class="item" th:text="${page}"
+                   th:href="${page.is(pagination.currentPage())} ? '#' : @{/event/list(page=${page})}"
+                   th:classappend="${page.is(pagination.currentPage())} ? 'disabled' : ''">1</a>
+            </th:block>
+            <a href="#" class="icon item"
+               th:href="${pagination.currentPage().is(pagination.lastPage())} ? '#' : @{/event/list(page=${pagination.currentPage().next()})}"
+               th:classappend="${pagination.currentPage().is(pagination.lastPage())} ? 'disabled' : ''">
+                <i class="right chevron icon"></i>
+            </a>
+        </div>
+    </div>
+
+    <article id="event-article" class="ui divided items" style="display: none;">
+        <section class="item" th:each="event : ${events.asList()}">
+            <div class="ui small image">
+                <i class="massive book icon"></i>
+            </div>
+            <div class="content">
+                <a class="header" th:href="@{/event/{eventId}(eventId=${event.eventId()})}"
+                   th:text="${event.eventName()}">Event Name</a>
+                <div class="description">
+                    <p th:utext="${event.eventDescription().asHTMLText()}">description</p>
+                </div>
+                <div class="meta">
+                    <a href="#" th:href="@{/event/{eventId}(eventId=${event.eventId()})}"
+                       th:text="${event.eventId().asText()}">1</a>
+                    <span class="ui label" th:text="${event.eventStatus().asText()} "></span>
+                    <span th:text="${event.revision().asText()}">
+                        v2, Last Revised at 2018/09/17 15:12:48, Created at 2018/09/17 15:11:13
+                    </span>
+                </div>
+                <div class="extra">
+                    <div class="ui right floated">
+                        <div class="ui buttons" th:if="${event.eventStatus().isOpen()}">
+                            <a href="#" class="ui primary button"
+                               th:href="@{/event/{eventId}/edit(eventId=${event.eventId()})}">Edit</a>
+                            <button class="ui button" type="button"
+                                    th:onclick="|$.post('@{/api/event/{eventId}/close(eventId=${event.eventId()})}', function(data){location.reload();})|">
+                                Close
+                            </button>
+                        </div>
+                        <div class="ui buttons" th:if="${event.eventStatus().isClosed()}">
+                            <button class="ui button" type="button"
+                                    th:onclick="|$.post('@{/api/event/{eventId}/reopen(eventId=${event.eventId()})}', function(data){location.reload();})|">
+                                Reopen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+
+    <table id="event-table" class="ui celled table" style="display: none;">
         <thead>
         <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Description</th>
             <th>Status</th>
+            <th>Revision</th>
             <th></th>
         </tr>
         </thead>
@@ -38,6 +151,7 @@
             <td th:text="${event.eventName()}"></td>
             <td th:utext="${event.eventDescription().asHTMLText()}">description</td>
             <td th:text="${event.eventStatus().asText()}">status</td>
+            <td th:text="${event.revision().asText()}"></td>
             <td>
                 <div class="ui buttons" th:if="${event.eventStatus().isOpen()}">
                     <a href="#" class="ui primary button"
@@ -56,34 +170,15 @@
             </td>
         </tr>
         </tbody>
-        <tfoot>
-        <tr>
-            <th colspan="8">
-                <span th:text="|全 ${events.count()} 件|">全 10 件</span>
-                <div class="ui right floated pagination menu" th:if="${!events.isEmpty()}"
-                     th:with="pagination = ${events.pagination()}">
-                    <a href="#" class="icon item"
-                       th:href="${pagination.currentPage().isFirstPage()} ? '#' : @{/event/list(page=${pagination.currentPage().prev()})}"
-                       th:classappend="${pagination.currentPage().isFirstPage()} ? 'disabled': ''">
-                        <i class="left chevron icon"></i>
-                    </a>
-                    <th:block th:each="page : ${pagination.pageSequence()}">
-                        <a href="#" class="item" th:text="${page}"
-                           th:href="${page.is(pagination.currentPage())} ? '#' : @{/event/list(page=${page})}"
-                           th:classappend="${page.is(pagination.currentPage())} ? 'disabled' : ''">1</a>
-                    </th:block>
-                    <a href="#" class="icon item"
-                       th:href="${pagination.currentPage().is(pagination.lastPage())} ? '#' : @{/event/list(page=${pagination.currentPage().next()})}"
-                       th:classappend="${pagination.currentPage().is(pagination.lastPage())} ? 'disabled' : ''">
-                        <i class="right chevron icon"></i>
-                    </a>
-                </div>
-            </th>
-        </tr>
-        </tfoot>
     </table>
 
-</div>
-<footer th:replace="fragment/appframe :: footer"></footer>
+    <div id="loading" class="ui segment">
+        <div class="ui active inverted dimmer">
+            <div class="ui text loader">Loading</div>
+        </div>
+        <img class="ui wireframe image" th:src="@{/images/dummy/short-paragraph.png}">
+    </div>
+
+    <footer th:replace="fragment/appframe :: footer"></footer>
 </body>
 </html>

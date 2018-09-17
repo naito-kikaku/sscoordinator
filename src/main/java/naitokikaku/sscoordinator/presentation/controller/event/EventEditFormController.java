@@ -21,7 +21,7 @@ import java.util.Arrays;
 
 @Controller
 @RequestMapping("/event/{id}/edit")
-@SessionAttributes("event")
+@SessionAttributes({"event", "eventSnapshot"})
 public class EventEditFormController {
 
     @ModelAttribute("pageInfo")
@@ -46,6 +46,7 @@ public class EventEditFormController {
         EventSnapshot eventSnapshot = eventSnapshotRepository.get(eventId);
         Event event = eventSnapshot.asEvent();
         model.addAttribute("event", event);
+        model.addAttribute("eventSnapshot", eventSnapshot);
         return "redirect:/event/" + eventId + "/edit?editing";
     }
 

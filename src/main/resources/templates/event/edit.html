@@ -8,10 +8,6 @@
     <header th:replace="fragment/appframe :: page-header"></header>
 
     <form th:object="${event}" th:action="@{${pageInfo.pageURL()}}" method="post" action="#" class="ui form">
-        <div class="field">
-            <label>Event ID</label>
-            <span th:text="${event.id()}">1</span>
-        </div>
         <div class="required field">
             <label>Name</label>
             <input placeholder="Name" type="text" th:field="*{name.value}"/>
@@ -20,13 +16,17 @@
             <label>Description</label>
             <textarea placeholder="Description" th:field="*{description.value}"></textarea>
         </div>
-
         <div class="ui buttons">
             <button class="ui primary button" type="submit">Save</button>
             <div class="or"></div>
             <a class="ui button" th:href="@{${breadcrumb.beforePage().pageURL()}}">Cancel</a>
         </div>
     </form>
+
+    <section class="ui secondary segment">
+        <span th:text="${eventSnapshot.eventId().asText()}">#1</span>
+        <span th:text="${eventSnapshot.revision().asText()}"></span>
+    </section>
 
 </div>
 <footer th:replace="fragment/appframe :: footer"></footer>

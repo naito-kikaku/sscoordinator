@@ -23,7 +23,7 @@ public class EventRevisionNumber implements Serializable {
         return value == 1L;
     }
 
-    public String asTextWithPrefix() {
+    public String asText() {
         return "v" + value.toString();
     }
 

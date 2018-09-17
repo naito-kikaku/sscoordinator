@@ -59,7 +59,7 @@ public class EventListController {
     public String search(@ModelAttribute("eventCriteria") EventCriteria criteria, Model model) {
         EventSnapshots events = searchEvent.execute(criteria);
         model.addAttribute("events", events);
-        return "event/list";
+        return "redirect:/event/list?page=" + criteria.pagination().currentPage();
     }
 
     @GetMapping(params = {"clear"})
