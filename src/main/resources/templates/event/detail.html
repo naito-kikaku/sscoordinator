@@ -14,10 +14,18 @@
                     <h3 class="header" th:text="|${event.eventId().asText()} ${event.eventName()}|">#1 Event Name</h3>
                 </div>
                 <div class="column" th:if="${event.eventStatus().isOpen()}">
-                    <div class="ui right floated buttons">
-                        <a href="#" class="ui primary button"
-                           th:href="@{/event/{eventId}/edit(eventId=${event.eventId()})}">Edit</a>
-                    </div>
+                    <button class="ui right floated button" type="button"
+                            th:onclick="|$.post('@{/api/event/{eventId}/close(eventId=${event.eventId()})}', function(data){location.reload();})|">
+                        Close
+                    </button>
+                    <a href="#" class="ui primary right floated button"
+                       th:href="@{/event/{eventId}/edit(eventId=${event.eventId()})}">Edit</a>
+                </div>
+                <div class="column" th:if="${event.eventStatus().isClosed()}">
+                    <button class="ui right floated button" type="button"
+                            th:onclick="|$.post('@{/api/event/{eventId}/reopen(eventId=${event.eventId()})}', function(data){location.reload();})|">
+                        Reopen
+                    </button>
                 </div>
             </div>
         </section>
@@ -29,22 +37,7 @@
             <span th:text="${event.revision().asText()}"></span>
         </section>
     </article>
-    <div th:if="${event.eventStatus().isOpen()}">
-        <div class="ui buttons">
-            <button class="ui button" type="button"
-                    th:onclick="|$.post('@{/api/event/{eventId}/close(eventId=${event.eventId()})}', function(data){location.reload();})|">
-                Close
-            </button>
-        </div>
-    </div>
-    <div th:if="${event.eventStatus().isClosed()}">
-        <div class="ui buttons">
-            <button class="ui button" type="button"
-                    th:onclick="|$.post('@{/api/event/{eventId}/reopen(eventId=${event.eventId()})}', function(data){location.reload();})|">
-                Reopen
-            </button>
-        </div>
-    </div>
+
 </div>
 <footer th:replace="fragment/appframe :: footer"></footer>
 </body>
