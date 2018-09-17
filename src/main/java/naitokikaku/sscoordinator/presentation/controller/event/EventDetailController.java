@@ -1,6 +1,5 @@
 package naitokikaku.sscoordinator.presentation.controller.event;
 
-import naitokikaku.sscoordinator.domain.model.event.Event;
 import naitokikaku.sscoordinator.domain.model.event.identity.EventId;
 import naitokikaku.sscoordinator.domain.model.event.snapshot.EventSnapshot;
 import naitokikaku.sscoordinator.domain.model.event.snapshot.EventSnapshotRepository;
