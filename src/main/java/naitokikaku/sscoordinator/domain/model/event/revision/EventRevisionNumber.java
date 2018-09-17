@@ -19,9 +19,19 @@ public class EventRevisionNumber implements Serializable {
         return new EventRevisionNumber(1L);
     }
 
+    public boolean isFirst() {
+        return value == 1L;
+    }
+
+    public String asTextWithPrefix() {
+        return "v" + value.toString();
+    }
+
     @Override
     public String toString() {
         if (value == null) return "";
         return value.toString();
     }
+
+
 }

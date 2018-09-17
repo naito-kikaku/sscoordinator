@@ -1,31 +1,34 @@
 package naitokikaku.sscoordinator.domain.model.event.status;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.io.Serializable;
 
 @EqualsAndHashCode
+@ToString
 public class EventStatus implements Serializable {
-    EventStatusType value;
+    EventStatusType type;
+    ClosedDateTime closedDateTime = new ClosedDateTime();
 
     public EventStatus() {
     }
 
-    public EventStatus(EventStatusType value) {
-        this.value = value;
+    public EventStatus(EventStatusType type, ClosedDateTime closedDateTime) {
+        this.type = type;
+        this.closedDateTime = closedDateTime;
     }
 
     public boolean isClosed() {
-        return value == EventStatusType.CLOSED;
+        return type == EventStatusType.CLOSED;
     }
 
     public boolean isOpen() {
-        return value == EventStatusType.OPEN;
+        return type == EventStatusType.OPEN;
     }
 
-    @Override
-    public String toString() {
-        if (value == null) return "";
-        return value.toString();
+    public String asText() {
+        if (isOpen()) return "Open";
+        return String.format("Closed at %s", closedDateTime.format());
     }
 }

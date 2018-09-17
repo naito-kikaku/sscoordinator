@@ -24,6 +24,11 @@ public class EventId implements Serializable {
         return StringUtils.isEmpty(value);
     }
 
+    public String asText() {
+        if (value == null) return "";
+        return "#" + value;
+    }
+
     @Override
     public String toString() {
         if (value == null) return "";

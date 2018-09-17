@@ -22,48 +22,38 @@
     <table class="ui celled table">
         <thead>
         <tr>
-            <th></th>
             <th>ID</th>
             <th>Name</th>
             <th>Description</th>
             <th>Status</th>
-            <th>Version</th>
-            <th>Revised At</th>
-            <th>Created At</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="event : ${events.asList()}">
             <td>
-                <th:block th:if="${event.eventStatus().isOpen()}">
+                <a href="#" th:href="@{/event/{eventId}(eventId=${event.eventId()})}"
+                   th:text="${event.eventId().asText()}">1</a>
+            </td>
+            <td th:text="${event.eventName()}"></td>
+            <td th:utext="${event.eventDescription().asHTMLText()}">description</td>
+            <td th:text="${event.eventStatus().asText()}">status</td>
+            <td>
+                <div class="ui buttons" th:if="${event.eventStatus().isOpen()}">
                     <a href="#" class="ui primary button"
                        th:href="@{/event/{eventId}/edit(eventId=${event.eventId()})}">Edit</a>
                     <button class="ui button" type="button"
                             th:onclick="|$.post('@{/api/event/{eventId}/close(eventId=${event.eventId()})}', function(data){location.reload();})|">
                         Close
                     </button>
-                </th:block>
-                <th:block th:if="${event.eventStatus().isClosed()}">
+                </div>
+                <div class="ui buttons" th:if="${event.eventStatus().isClosed()}">
                     <button class="ui button" type="button"
                             th:onclick="|$.post('@{/api/event/{eventId}/reopen(eventId=${event.eventId()})}', function(data){location.reload();})|">
                         Reopen
                     </button>
-                </th:block>
+                </div>
             </td>
-            <td th:text="${event.eventId()}">1</td>
-            <td th:text="${event.eventName()}">name</td>
-            <td th:with="sentence = ${event.eventDescription().toString()}">
-                <th:block th:if="${sentence}">
-                    <th:block th:each="str, stat : ${sentence.split('\r\n|\r|\n', -1)}">
-                        <th:block th:text="${str}"/>
-                        <br th:if="${!stat.last}"/>
-                    </th:block>
-                </th:block>
-            </td>
-            <td th:text="${event.eventStatus()}">status</td>
-            <td th:text="${event.revision().revisionNumber()}">1</td>
-            <td th:text="${event.revision().revisedDateTime().format()}">2018/09/17 02:14:02</td>
-            <td th:text="${event.revision().createdDateTime().format()}">2018/09/17 02:14:02</td>
         </tr>
         </tbody>
         <tfoot>

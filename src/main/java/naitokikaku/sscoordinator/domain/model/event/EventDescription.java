@@ -15,6 +15,11 @@ public class EventDescription implements Serializable {
         this.value = value;
     }
 
+    public String asHTMLText() {
+        if (value == null) return "";
+        return value.replaceAll("\\r\\n|\\r|\\n", "<br/>");
+    }
+
     @Override
     public String toString() {
         if (value == null) return "";

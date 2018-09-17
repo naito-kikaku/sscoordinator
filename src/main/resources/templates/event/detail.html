@@ -1,0 +1,51 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/appframe :: head"></head>
+<body>
+<nav th:replace="fragment/appframe :: menubar"></nav>
+<div class="ui main container">
+    <header th:replace="fragment/appframe :: page-header"></header>
+
+    <article class="ui segments">
+        <section class="ui black segment">
+            <div class="ui two column stackable grid">
+                <div class="column">
+                    <h3 class="header" th:text="${event.eventName()}">Event Name</h3>
+                </div>
+                <div class="column" th:if="${event.eventStatus().isOpen()}">
+                    <div class="ui right floated buttons">
+                        <a href="#" class="ui primary button"
+                           th:href="@{/event/{eventId}/edit(eventId=${event.eventId()})}">Edit</a>
+                        <button class="ui button" type="button"
+                                th:onclick="|$.post('@{/api/event/{eventId}/close(eventId=${event.eventId()})}', function(data){location.reload();})|">
+                            Close
+                        </button>
+                    </div>
+                </div>
+                <div class="column" th:if="${event.eventStatus().isClosed()}">
+                    <div class="ui right floated buttons">
+                        <button class="ui button" type="button"
+                                th:onclick="|$.post('@{/api/event/{eventId}/reopen(eventId=${event.eventId()})}', function(data){location.reload();})|">
+                            Reopen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="ui segment">
+            <span th:utext="${event.eventDescription().asHTMLText()}"></span>
+        </section>
+        <section class="ui segment">
+            <span th:text="${event.eventId().asText()} "></span>
+            <div class="ui label" th:text="${event.eventStatus().asText()} "></div>
+        </section>
+        <section class="ui segment">
+            <span th:text="${event.revision().asText()}"></span>
+        </section>
+    </article>
+
+</div>
+<footer th:replace="fragment/appframe :: footer"></footer>
+</body>
+</html>

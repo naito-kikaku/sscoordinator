@@ -21,8 +21,11 @@
             <textarea placeholder="Description" th:field="*{description.value}"></textarea>
         </div>
 
-        <button class="ui primary button" type="submit">Save</button>
-        <a class="ui button" th:href="@{${breadcrumb.beforePage().pageURL()}}">Cancel</a>
+        <div class="ui buttons">
+            <button class="ui primary button" type="submit">Save</button>
+            <div class="or"></div>
+            <a class="ui button" th:href="@{${breadcrumb.beforePage().pageURL()}}">Cancel</a>
+        </div>
     </form>
 
 </div>

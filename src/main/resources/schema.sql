@@ -29,7 +29,8 @@ CREATE TABLE event.latest_events (
 );
 
 CREATE TABLE event.closed_events (
-  event_id BIGINT NOT NULL,
+  event_id  BIGINT    NOT NULL,
+  closed_at TIMESTAMP NOT NULL DEFAULT NOW(),
   CONSTRAINT pk_close_events PRIMARY KEY (event_id),
   CONSTRAINT fk_close_events_to_events FOREIGN KEY (event_id) REFERENCES event.events (event_id)
 )
