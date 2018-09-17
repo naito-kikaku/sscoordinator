@@ -8,7 +8,7 @@
     <header th:replace="fragment/appframe :: page-header"></header>
 
     <form method="post" action="#" class="ui form"
-          th:object="${event}" th:action="@{${pageInfo.pageURL()}}"
+          th:object="${event}" th:action="@{/event/register}"
           th:classappend="${#fields.allErrors()} ? 'error'">
         <section class="ui error message" th:if="${#fields.hasAnyErrors()}">
             <h2 class="header">Errors</h2>

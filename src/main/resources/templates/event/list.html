@@ -37,7 +37,7 @@
             } else {
                 showArticle();
             }
-        }, 500);
+        }, 400);
     });
 </script>
 <body>
@@ -46,9 +46,9 @@
 <div class="ui main container">
     <header th:replace="fragment/appframe :: page-header"></header>
 
-    <section class="ui two column grid stackable" th:if="${!events.isEmpty()}">
+    <section class="ui two column grid stackable">
         <section class="column">
-            <form th:object="${eventCriteria}" th:action="@{${pageInfo.pageURL()}}" method="post" action="#"
+            <form th:object="${eventCriteria}" th:action="@{/event/list}" method="post" action="#"
                   class="ui form">
                 <div class="ui input">
                     <input type="text" placeholder="name or description" th:field="*{likeEventNameOrDescription.value}">
@@ -59,7 +59,7 @@
         </section>
     </section>
 
-    <section class="ui menu" th:if="${!events.isEmpty()}">
+    <section class="ui menu">
         <section class="item">
             <div class="ui basic icon buttons">
                 <button id="show-list-button" class="ui left attached button"><i class="th list icon"></i></button>
@@ -69,7 +69,7 @@
         <section class="item">
             <a href="#" class="ui primary button" th:href="@{/event/register}">Add Event</a>
         </section>
-        <section class="item right floated">
+        <section class="item right floated" th:if="${!events.isEmpty()}">
             <div class="ui pagination menu"
                  th:with="pagination = ${events.pagination()}">
                 <a href="#" class="icon item"
@@ -91,7 +91,7 @@
         </section>
     </section>
 
-    <span class="item" th:text="|全 ${events.count()} 件|" th:if="${!events.isEmpty()}">全 10 件</span>
+    <span class="item" th:text="|全 ${events.count()} 件|">全 10 件</span>
 
     <article id="event-article" class="ui divided items" style="display: none;" th:if="${!events.isEmpty()}">
         <section class="item" th:each="event : ${events.asList()}">
