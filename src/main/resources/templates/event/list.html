@@ -46,31 +46,31 @@
 <div class="ui main container">
     <header th:replace="fragment/appframe :: page-header"></header>
 
-    <section class="ui two column grid stackable">
+    <section class="ui two column grid stackable" th:if="${!events.isEmpty()}">
         <section class="column">
             <form th:object="${eventCriteria}" th:action="@{${pageInfo.pageURL()}}" method="post" action="#"
                   class="ui form">
                 <div class="ui input">
                     <input type="text" placeholder="name or description" th:field="*{likeEventNameOrDescription.value}">
                 </div>
-                <div class="ui buttons">
-                    <button class="ui primary button">Search</button>
-                    <div class="or"></div>
-                    <a class="ui button" th:href="@{/event/list?clear}">Clear</a>
-                </div>
+                <button class="ui primary button">Search</button>
+                <a class="ui button" th:href="@{/event/list?clear}">Clear</a>
             </form>
         </section>
     </section>
 
-    <div class="ui menu">
-        <div class="item">
+    <section class="ui menu" th:if="${!events.isEmpty()}">
+        <section class="item">
             <div class="ui basic icon buttons">
                 <button id="show-list-button" class="ui left attached button"><i class="th list icon"></i></button>
                 <button id="show-table-button" class="ui right attached button"><i class="table icon"></i></button>
             </div>
-        </div>
-        <div class="item right floated">
-            <div class="ui pagination menu" th:if="${!events.isEmpty()}"
+        </section>
+        <section class="item">
+            <a href="#" class="ui primary button" th:href="@{/event/register}">Add Event</a>
+        </section>
+        <section class="item right floated">
+            <div class="ui pagination menu"
                  th:with="pagination = ${events.pagination()}">
                 <a href="#" class="icon item"
                    th:href="${pagination.currentPage().isFirstPage()} ? '#' : @{/event/list(page=${pagination.currentPage().prev()})}"
@@ -88,12 +88,12 @@
                     <i class="right chevron icon"></i>
                 </a>
             </div>
-        </div>
-    </div>
+        </section>
+    </section>
 
-    <span class="item" th:text="|全 ${events.count()} 件|">全 10 件</span>
+    <span class="item" th:text="|全 ${events.count()} 件|" th:if="${!events.isEmpty()}">全 10 件</span>
 
-    <article id="event-article" class="ui divided items" style="display: none;">
+    <article id="event-article" class="ui divided items" style="display: none;" th:if="${!events.isEmpty()}">
         <section class="item" th:each="event : ${events.asList()}">
             <div class="ui small image">
                 <i class="massive book icon"></i>
@@ -112,27 +112,27 @@
                 </div>
                 <div class="extra">
                     <div class="ui right floated">
-                        <div class="ui buttons" th:if="${event.eventStatus().isOpen()}">
+                        <th:block th:if="${event.eventStatus().isOpen()}">
                             <a href="#" class="ui primary button"
                                th:href="@{/event/{eventId}/edit(eventId=${event.eventId()})}">Edit</a>
                             <button class="ui button" type="button"
                                     th:onclick="|$.post('@{/api/event/{eventId}/close(eventId=${event.eventId()})}', function(data){location.reload();})|">
                                 Close
                             </button>
-                        </div>
-                        <div class="ui buttons" th:if="${event.eventStatus().isClosed()}">
+                        </th:block>
+                        <th:block class="ui buttons" th:if="${event.eventStatus().isClosed()}">
                             <button class="ui button" type="button"
                                     th:onclick="|$.post('@{/api/event/{eventId}/reopen(eventId=${event.eventId()})}', function(data){location.reload();})|">
                                 Reopen
                             </button>
-                        </div>
+                        </th:block>
                     </div>
                 </div>
             </div>
         </section>
     </article>
 
-    <table id="event-table" class="ui celled table" style="display: none;">
+    <table id="event-table" class="ui celled table" style="display: none;" th:if="${!events.isEmpty()}">
         <thead>
         <tr>
             <th>ID</th>
@@ -156,31 +156,41 @@
             </td>
             <td th:text="${event.revision().asText()}"></td>
             <td>
-                <div class="ui buttons" th:if="${event.eventStatus().isOpen()}">
+                <th:block th:if="${event.eventStatus().isOpen()}">
                     <a href="#" class="ui primary button"
                        th:href="@{/event/{eventId}/edit(eventId=${event.eventId()})}">Edit</a>
                     <button class="ui button" type="button"
                             th:onclick="|$.post('@{/api/event/{eventId}/close(eventId=${event.eventId()})}', function(data){location.reload();})|">
                         Close
                     </button>
-                </div>
-                <div class="ui buttons" th:if="${event.eventStatus().isClosed()}">
+                </th:block>
+                <th:block th:if="${event.eventStatus().isClosed()}">
                     <button class="ui button" type="button"
                             th:onclick="|$.post('@{/api/event/{eventId}/reopen(eventId=${event.eventId()})}', function(data){location.reload();})|">
                         Reopen
                     </button>
-                </div>
+                </th:block>
             </td>
         </tr>
         </tbody>
     </table>
 
-    <div id="loading" class="ui segment">
+    <section id="loading" class="ui segment" th:if="${!events.isEmpty()}">
         <div class="ui active inverted dimmer">
             <div class="ui text loader">Loading</div>
         </div>
         <img class="ui wireframe image" th:src="@{/images/dummy/short-paragraph.png}">
-    </div>
+    </section>
+
+    <section class="ui placeholder segment center aligned" th:if="${events.isEmpty()}">
+        <div class="ui icon header">
+            <i class="book icon"></i>
+            No events are listed.
+        </div>
+        <div class="inline">
+            <a href="#" class="ui primary button" th:href="@{/event/register}">Add Event</a>
+        </div>
+    </section>
 
     <footer th:replace="fragment/appframe :: footer"></footer>
 </body>

@@ -31,6 +31,7 @@ public class EventRegisterFormController {
     public Breadcrumb breadcrumb() {
         return new Breadcrumb(Arrays.asList(
                 new IndexPageInfo(),
+                new EventListPageInfo(),
                 new EventRegisterFormPageInfo()
         ));
     }
@@ -53,12 +54,20 @@ public class EventRegisterFormController {
     @Resource
     RegisterEvent registerEvent;
 
-    @PostMapping
+    @PostMapping(params = "return")
     public String post(@Valid @ModelAttribute("event") Event event, BindingResult binding, SessionStatus status) {
         if (binding.hasErrors()) return "event/register";
         registerEvent.execute(event);
         status.setComplete();
-        return "redirect:/";
+        return "redirect:/event/list";
+    }
+
+    @PostMapping(params = "continuous")
+    public String continuousPost(@Valid @ModelAttribute("event") Event event, BindingResult binding, SessionStatus status) {
+        if (binding.hasErrors()) return "event/register";
+        registerEvent.execute(event);
+        status.setComplete();
+        return "redirect:/event/register";
     }
 
     @InitBinder

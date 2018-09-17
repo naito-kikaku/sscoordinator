@@ -10,12 +10,12 @@
     <form method="post" action="#" class="ui form"
           th:object="${event}" th:action="@{${pageInfo.pageURL()}}"
           th:classappend="${#fields.allErrors()} ? 'error'">
-        <div class="ui error message" th:if="${#fields.hasAnyErrors()}">
-            <div class="header">Errors</div>
+        <section class="ui error message" th:if="${#fields.hasAnyErrors()}">
+            <h2 class="header">Errors</h2>
             <ul>
                 <li th:each="err : ${#fields.allErrors()}" th:text="${err}">Input is incorrect</li>
             </ul>
-        </div>
+        </section>
         <div class="required field" th:classappend="${#fields.hasErrors('name.value')} ? 'error'">
             <label>Name</label>
             <input placeholder="Name" type="text" th:field="*{name.value}"/>
@@ -24,11 +24,9 @@
             <label>Description</label>
             <textarea placeholder="Description" th:field="*{description.value}"></textarea>
         </div>
-        <div class="ui buttons">
-            <button class="ui primary button" type="submit">Save</button>
-            <div class="or"></div>
-            <a class="ui button" th:href="@{${breadcrumb.beforePage().pageURL()}}">Cancel</a>
-        </div>
+        <button class="ui primary button" type="submit" name="return">Save</button>
+        <button class="ui primary button" type="submit" name="continuous">Continuous Register</button>
+        <a class="ui button" th:href="@{${breadcrumb.beforePage().pageURL()}}">Cancel</a>
     </form>
 
 </div>
