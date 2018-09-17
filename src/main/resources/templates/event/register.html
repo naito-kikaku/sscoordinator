@@ -7,8 +7,16 @@
 <div class="ui main container">
     <header th:replace="fragment/appframe :: page-header"></header>
 
-    <form th:object="${event}" th:action="@{${pageInfo.pageURL()}}" method="post" action="#" class="ui form">
-        <div class="required field">
+    <form method="post" action="#" class="ui form"
+          th:object="${event}" th:action="@{${pageInfo.pageURL()}}"
+          th:classappend="${#fields.allErrors()} ? 'error'">
+        <div class="ui error message" th:if="${#fields.hasAnyErrors()}">
+            <div class="header">Errors</div>
+            <ul>
+                <li th:each="err : ${#fields.allErrors()}" th:text="${err}">Input is incorrect</li>
+            </ul>
+        </div>
+        <div class="required field" th:classappend="${#fields.hasErrors('name.value')} ? 'error'">
             <label>Name</label>
             <input placeholder="Name" type="text" th:field="*{name.value}"/>
         </div>
