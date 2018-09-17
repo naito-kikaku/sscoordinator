@@ -18,7 +18,7 @@ public class RevisedDateTime implements Serializable {
     }
 
     public String format() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         return value.format(formatter);
     }
 

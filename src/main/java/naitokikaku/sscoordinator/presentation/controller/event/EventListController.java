@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 @Controller
 @RequestMapping("/event/list")
-@SessionAttributes("eventCriteria")
+@SessionAttributes({"eventCriteria"})
 public class EventListController {
 
     @ModelAttribute("pageInfo")
@@ -47,8 +47,7 @@ public class EventListController {
     SearchEvent searchEvent;
 
     @GetMapping(params = {"page"})
-    public String list(@ModelAttribute("eventCriteria") EventCriteria criteria,
-                       @RequestParam("page") Page page, Model model) {
+    public String list(@ModelAttribute("eventCriteria") EventCriteria criteria, @RequestParam("page") Page page, Model model) {
         EventCriteria rewrittenCriteria = criteria.rewrite(page);
         EventSnapshots events = searchEvent.execute(rewrittenCriteria);
         model.addAttribute("events", events);

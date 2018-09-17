@@ -7,6 +7,10 @@
 <div class="ui main container">
     <header th:replace="fragment/appframe :: page-header"></header>
 
+    <section class="ui success message" th:unless="${#strings.isEmpty(successMessage)}">
+        <p th:text="${successMessage}">success message</p>
+    </section>
+
     <article class="ui segments">
         <section class="ui black segment">
             <div class="ui two column stackable grid">

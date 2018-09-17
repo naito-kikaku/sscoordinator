@@ -3,6 +3,7 @@ package naitokikaku.sscoordinator.presentation.controller.event;
 import naitokikaku.sscoordinator.application.usecase.event.RegisterEvent;
 import naitokikaku.sscoordinator.domain.model.event.Event;
 import naitokikaku.sscoordinator.domain.model.event.EventFactory;
+import naitokikaku.sscoordinator.domain.model.event.identity.EventId;
 import naitokikaku.sscoordinator.presentation.controller.IndexPageInfo;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.Breadcrumb;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageInfo;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -40,14 +42,18 @@ public class EventRegisterFormController {
     EventFactory eventFactory;
 
     @GetMapping
-    public String index(Model model) {
+    public String index(@ModelAttribute("successMessage") String successMessage,
+                        RedirectAttributes attributes, Model model) {
         Event event = eventFactory.create();
         model.addAttribute("event", event);
+        attributes.addFlashAttribute("successMessage", successMessage);
         return "redirect:/event/register?editing";
     }
 
     @GetMapping(params = "editing")
-    public String editing(@ModelAttribute("event") Event event) {
+    public String editing(@ModelAttribute("event") Event event,
+                          @ModelAttribute("successMessage") String successMessage, Model model) {
+        model.addAttribute("successMessage", successMessage);
         return "event/register";
     }
 
@@ -55,18 +61,23 @@ public class EventRegisterFormController {
     RegisterEvent registerEvent;
 
     @PostMapping(params = "return")
-    public String post(@Valid @ModelAttribute("event") Event event, BindingResult binding, SessionStatus status) {
+    public String post(@Valid @ModelAttribute("event") Event event, BindingResult binding,
+                       RedirectAttributes attributes, SessionStatus status) {
         if (binding.hasErrors()) return "event/register";
-        registerEvent.execute(event);
+        EventId eventId = registerEvent.execute(event);
         status.setComplete();
-        return "redirect:/event/list";
+        attributes.addFlashAttribute("successMessage", "イベントを登録しました。");
+        return "redirect:/event/" + eventId;
     }
 
     @PostMapping(params = "continuous")
-    public String continuousPost(@Valid @ModelAttribute("event") Event event, BindingResult binding, SessionStatus status) {
+    public String continuousPost(@Valid @ModelAttribute("event") Event event, BindingResult binding,
+                                 RedirectAttributes attributes, SessionStatus status) {
         if (binding.hasErrors()) return "event/register";
-        registerEvent.execute(event);
+        EventId eventId = registerEvent.execute(event);
         status.setComplete();
+        String successMessage = String.format("イベント<a href=\"/event/%s\">%s</a>を登録しました。", eventId, eventId.asText());
+        attributes.addFlashAttribute("successMessage", successMessage);
         return "redirect:/event/register";
     }
 

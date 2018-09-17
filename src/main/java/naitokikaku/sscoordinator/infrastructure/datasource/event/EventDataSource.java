@@ -15,13 +15,14 @@ public class EventDataSource implements EventRepository {
     EventMapper mapper;
 
     @Override
-    public void store(Event event) {
+    public EventId store(Event event) {
         EventId eventId = mapper.nextEventId();
         mapper.store(eventId);
         EventRevisionId eventRevisionId = mapper.nextEventRevisionId();
         EventRevisionNumber eventRevisionNumber = EventRevisionNumber.first();
         mapper.storeRevision(eventRevisionId, eventId, eventRevisionNumber, event);
         mapper.storeLatestPointer(eventId, eventRevisionId, eventRevisionNumber);
+        return eventId;
     }
 
     @Override

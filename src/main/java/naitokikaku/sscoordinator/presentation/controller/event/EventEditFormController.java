@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -59,11 +60,13 @@ public class EventEditFormController {
     ReviseEvent reviseEvent;
 
     @PostMapping
-    public String post(@Valid @ModelAttribute("event") Event event, BindingResult binding, SessionStatus status) {
+    public String post(@Valid @ModelAttribute("event") Event event, BindingResult binding,
+                       RedirectAttributes attributes, SessionStatus status) {
         if (binding.hasErrors()) return "event/edit";
         reviseEvent.execute(event);
         status.setComplete();
-        return "redirect:/event/list";
+        attributes.addFlashAttribute("successMessage", "イベントを更新しました。");
+        return "redirect:/event/" + event.id();
     }
 
     @InitBinder

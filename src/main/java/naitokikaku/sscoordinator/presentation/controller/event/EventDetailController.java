@@ -38,9 +38,11 @@ public class EventDetailController {
     EventSnapshotRepository eventSnapshotRepository;
 
     @GetMapping
-    public String index(@PathVariable("id") EventId eventId, Model model) {
+    public String index(@PathVariable("id") EventId eventId,
+                        @ModelAttribute("successMessage") String successMessage, Model model) {
         EventSnapshot eventSnapshot = eventSnapshotRepository.get(eventId);
         model.addAttribute("event", eventSnapshot);
+        model.addAttribute("successMessage", successMessage);
         return "event/detail";
     }
 

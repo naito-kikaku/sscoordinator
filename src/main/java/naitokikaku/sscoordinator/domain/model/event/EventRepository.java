@@ -4,7 +4,7 @@ import naitokikaku.sscoordinator.domain.model.event.identity.EventId;
 
 public interface EventRepository {
 
-    void store(Event event);
+    EventId store(Event event);
 
     void update(Event event);
 

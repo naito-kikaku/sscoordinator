@@ -7,6 +7,10 @@
 <div class="ui main container">
     <header th:replace="fragment/appframe :: page-header"></header>
 
+    <section class="ui success message" th:unless="${#strings.isEmpty(successMessage)}">
+        <p th:utext="${successMessage}">success message</p>
+    </section>
+
     <form method="post" action="#" class="ui form"
           th:object="${event}" th:action="@{/event/register}"
           th:classappend="${#fields.allErrors()} ? 'error'">
