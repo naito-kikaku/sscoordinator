@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="naitokikaku.sscoordinator.infrastructure.datasource.account.AccountMapper">
+
+    <resultMap id="AccountId" type="naitokikaku.sscoordinator.domain.model.account.identity.AccountId">
+        <result property="value" column="next_account_id"/>
+    </resultMap>
+
+    <select id="nextAccountId" resultMap="AccountId">
+        SELECT nextval('account.account_sequence_number') as next_account_id
+    </select>
+
+    <insert id="store">
+        INSERT INTO account.accounts (account_id)
+        VALUES (#{accountId.value})
+    </insert>
+
+    <select id="nextAccountNameRevisionId" resultType="Long">
+        SELECT nextval('account.account_name_sequence_number')
+    </select>
+
+    <insert id="storeNameRevision">
+        INSERT INTO account.account_name_revisions (account_id, account_name_revision_id, account_name)
+        VALUES (#{accountId.value}, #{accountNameRevisionId}, #{account.name.value})
+    </insert>
+
+    <insert id="storeLatestNameRevision">
+        INSERT INTO account.latest_account_names (account_id, account_name_revision_id)
+        VALUES (#{accountId.value}, #{accountNameRevisionId})
+    </insert>
+
+    <select id="nextEmailAddressRevisionId" resultType="Long">
+        SELECT nextval('account.email_address_revision_sequence_number')
+    </select>
+
+    <insert id="storeEmailAddressRevision">
+        INSERT INTO account.email_address_revisions (account_id, email_address_revision_id, email_address)
+        VALUES (#{accountId.value}, #{emailAddressRevisionId}, #{account.emailAddress.value})
+    </insert>
+
+    <insert id="storeLatestEmailAddressRevision">
+        INSERT INTO account.latest_email_addresses (account_id, email_address_revision_id)
+        VALUES (#{accountId.value}, #{emailAddressRevisionId})
+    </insert>
+
+    <select id="nextPasswordRevisionId" resultType="Long">
+        SELECT nextval('account.password_revision_sequence_number')
+    </select>
+
+    <insert id="storePasswordRevision">
+        INSERT INTO account.password_revisions (account_id, password_revision_id, password)
+        VALUES (#{accountId.value}, #{passwordRevisionId}, #{encryptPassword.value})
+    </insert>
+
+    <insert id="storeLatestPasswordRevision">
+        INSERT INTO account.latest_passwords (account_id, password_revision_id)
+        VALUES (#{accountId.value}, #{passwordRevisionId})
+    </insert>
+
+    <insert id="storeActiveEmailAddress">
+        INSERT INTO account.active_email_addresses (email_address)
+        VALUES (#{account.emailAddress.value})
+    </insert>
+
+    <select id="existsInActiveEmailAddresses" resultType="boolean">
+        SELECT EXISTS(SELECT * FROM account.active_email_addresses WHERE email_address = #{emailAddress.value})
+    </select>
+
+</mapper>

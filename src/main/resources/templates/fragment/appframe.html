@@ -48,10 +48,25 @@
         <div class="ui divider"></div>
     </header>
 
-    <div class="ui stackable three column grid">
+    <section class="ui stackable three column grid">
         <div class="column">
-            <div class="ui segment">
+            <section class="ui segment">
+                <h3 class="ui header">Login / SignUp</h3>
+                <div class="ui divider"></div>
+                <a href="#" th:href="@{/login}" class="ui labeled icon button">
+                    <i class="icon user"></i>
+                    Login
+                </a>
+                <a href="#" th:href="@{/signup}" class="ui labeled icon primary button">
+                    <i class="icon user plus"></i>
+                    SignUp
+                </a>
+            </section>
+        </div>
+        <div class="column">
+            <section class="ui segment column">
                 <h3 class="ui header">Event</h3>
+                <div class="ui divider"></div>
                 <ul class="ui bulleted list">
                     <li class="item">
                         <a href="#" th:href="@{/event/register}"><i class="file icon"></i>イベント登録</a>
@@ -60,27 +75,19 @@
                         <a href="#" th:href="@{/event/list}"><i class="folder open icon"></i>イベント一覧</a>
                     </li>
                 </ul>
-            </div>
+            </section>
         </div>
         <div class="column">
-            <div class="ui segment">
+            <section class="ui segment">
                 <h3 class="ui header">Dummy header</h3>
+                <div class="ui divider"></div>
                 <ul class="ui bulleted list">
                     <li class="item"><a href="#">dummy1</a></li>
                     <li class="item"><a href="#">dummy2</a></li>
                 </ul>
-            </div>
+            </section>
         </div>
-        <div class="column">
-            <div class="ui segment">
-                <h3 class="ui header">Dummy header</h3>
-                <ul class="ui bulleted list">
-                    <li class="item"><a href="#">dummy1</a></li>
-                    <li class="item"><a href="#">dummy2</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    </section>
 </div>
 
 <footer th:fragment="footer" class="ui vertical footer segment">
