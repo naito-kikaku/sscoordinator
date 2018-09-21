@@ -21,7 +21,7 @@ CREATE TABLE account.account_name_revisions (
 CREATE TABLE account.latest_account_names (
   account_id               BIGINT NOT NULL,
   account_name_revision_id BIGINT NOT NULL,
-  CONSTRAINT pk_latest_account_names UNIQUE (account_id),
+  CONSTRAINT pk_latest_account_names PRIMARY KEY (account_id),
   CONSTRAINT fk_latest_account_names_to_accounts FOREIGN KEY (account_id) REFERENCES account.accounts (account_id),
   CONSTRAINT fk_latest_account_names_to_email_revisions FOREIGN KEY (account_name_revision_id) REFERENCES account.account_name_revisions (account_name_revision_id)
 );
