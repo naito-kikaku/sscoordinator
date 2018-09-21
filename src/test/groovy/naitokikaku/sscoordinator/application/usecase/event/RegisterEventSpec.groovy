@@ -2,6 +2,7 @@ package naitokikaku.sscoordinator.application.usecase.event
 
 import naitokikaku.sscoordinator.TestApplication
 import naitokikaku.sscoordinator.domain.model.event.Event
+import naitokikaku.sscoordinator.domain.model.event.EventDescription
 import naitokikaku.sscoordinator.domain.model.event.EventName
 import naitokikaku.sscoordinator.domain.model.event.identity.EventId
 import org.springframework.boot.test.context.SpringBootTest
@@ -22,7 +23,7 @@ class RegisterEventSpec extends Specification {
 
     def "イベントを登録できる"() {
         setup:
-        Event event = new Event(new EventId(), new EventName("test event"))
+        Event event = new Event(new EventId(), new EventName("test event"), new EventDescription("test description"))
 
         when:
         registerEvent.execute(event)
