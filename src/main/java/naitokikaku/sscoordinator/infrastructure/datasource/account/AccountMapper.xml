@@ -10,7 +10,7 @@
     </resultMap>
 
     <select id="nextAccountId" resultMap="AccountId">
-        SELECT nextval('account.account_sequence_number') as next_account_id
+        SELECT nextval('account.account_id_sequence') as next_account_id
     </select>
 
     <insert id="store">
@@ -19,7 +19,7 @@
     </insert>
 
     <select id="nextAccountNameRevisionId" resultType="Long">
-        SELECT nextval('account.account_name_sequence_number')
+        SELECT nextval('account.account_name_revision_id_sequence')
     </select>
 
     <insert id="storeNameRevision">
@@ -33,7 +33,7 @@
     </insert>
 
     <select id="nextEmailAddressRevisionId" resultType="Long">
-        SELECT nextval('account.email_address_revision_sequence_number')
+        SELECT nextval('account.email_address_revision_id_sequence')
     </select>
 
     <insert id="storeEmailAddressRevision">
@@ -47,7 +47,7 @@
     </insert>
 
     <select id="nextPasswordRevisionId" resultType="Long">
-        SELECT nextval('account.password_revision_sequence_number')
+        SELECT nextval('account.password_revision_id_sequence')
     </select>
 
     <insert id="storePasswordRevision">

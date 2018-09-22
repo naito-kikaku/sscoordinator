@@ -19,11 +19,11 @@
     </resultMap>
 
     <select id="nextEventId" resultMap="EventId">
-        SELECT nextval('event.event_sequence_number') as next_event_id
+        SELECT nextval('event.event_id_sequence') as next_event_id
     </select>
 
     <select id="nextEventRevisionId" resultMap="EventRevisionId">
-        SELECT nextval('event.event_revision_sequence_number') as next_event_revision_id
+        SELECT nextval('event.event_revision_id_sequence') as next_event_revision_id
     </select>
 
     <select id="nextEventRevisionNumber" resultMap="EventRevisionNumber">
