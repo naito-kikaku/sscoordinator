@@ -29,6 +29,10 @@ public class Account implements Serializable {
         this.password = password;
     }
 
+    public AccountId id() {
+        return id;
+    }
+
     public EmailAddress emailAddress() {
         return emailAddress;
     }
