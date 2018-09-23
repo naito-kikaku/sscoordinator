@@ -1,14 +1,14 @@
 DROP SCHEMA IF EXISTS account CASCADE;
 CREATE SCHEMA account;
 
-CREATE SEQUENCE account.account_sequence_number;
+CREATE SEQUENCE account.account_id_sequence;
 CREATE TABLE account.accounts (
   account_id BIGINT    NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   CONSTRAINT pk_accounts PRIMARY KEY (account_id)
 );
 
-CREATE SEQUENCE account.account_name_sequence_number;
+CREATE SEQUENCE account.account_name_revision_id_sequence;
 CREATE TABLE account.account_name_revisions (
   account_name_revision_id BIGINT       NOT NULL,
   account_id               BIGINT       NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE account.latest_account_names (
   CONSTRAINT fk_latest_account_names_to_email_revisions FOREIGN KEY (account_name_revision_id) REFERENCES account.account_name_revisions (account_name_revision_id)
 );
 
-CREATE SEQUENCE account.email_address_revision_sequence_number;
+CREATE SEQUENCE account.email_address_revision_id_sequence;
 CREATE TABLE account.email_address_revisions (
   email_address_revision_id BIGINT       NOT NULL,
   account_id                BIGINT       NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE account.latest_email_addresses (
   CONSTRAINT fk_latest_email_addresses_to_email_revisions FOREIGN KEY (email_address_revision_id) REFERENCES account.email_address_revisions (email_address_revision_id)
 );
 
-CREATE SEQUENCE account.password_revision_sequence_number;
+CREATE SEQUENCE account.password_revision_id_sequence;
 CREATE TABLE account.password_revisions (
   password_revision_id BIGINT    NOT NULL,
   account_id           BIGINT    NOT NULL,
@@ -70,5 +70,6 @@ CREATE TABLE account.active_email_addresses (
 CREATE TABLE account.deleted_accounts (
   account_id BIGINT    NOT NULL,
   deleted_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  CONSTRAINT pk_deleted_accounts PRIMARY KEY (account_id)
+  CONSTRAINT pk_deleted_accounts PRIMARY KEY (account_id),
+  CONSTRAINT fk_deleted_accounts_to_accounts FOREIGN KEY (account_id) REFERENCES account.accounts (account_id)
 );

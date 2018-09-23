@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="naitokikaku.sscoordinator.infrastructure.datasource.account.transaction.AccountTransactionMapper">
+
+    <resultMap id="AccountTransactionId"
+               type="naitokikaku.sscoordinator.domain.model.account.transaction.AccountTransactionId">
+        <result property="value" column="next_account_transaction_id"/>
+    </resultMap>
+
+    <select id="nextAccountTransactionId" resultMap="AccountTransactionId">
+        SELECT nextval('account_transaction.account_transaction_id_sequence') as next_account_transaction_id
+    </select>
+
+    <insert id="storeHeader">
+        INSERT INTO account_transaction.account_transactions (account_transaction_id,
+                                                              account_id,
+                                                              account_transaction_type_id)
+        VALUES (#{accountTransactionId.value}, #{accountId.value}, (SELECT account_transaction_type_id
+                                                                    FROM account_transaction.account_transaction_types
+                                                                    WHERE account_transaction_type = #{accountTransactionType}))
+    </insert>
+
+    <insert id="storeSignUp">
+        INSERT INTO account_transaction.account_sign_up_transactions (account_transaction_id,
+                                                                      account_name_revision_id,
+                                                                      email_address_revision_id,
+                                                                      password_revision_id)
+        VALUES (#{accountTransactionId.value},
+                #{signUpTransaction.accountRevision.accountNameRevisionId.value},
+                #{signUpTransaction.accountRevision.emailAddressRevisionId.value},
+                #{signUpTransaction.accountRevision.passwordRevisionId.value})
+    </insert>
+
+</mapper>

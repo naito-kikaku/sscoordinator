@@ -1,14 +1,14 @@
 DROP SCHEMA IF EXISTS event CASCADE;
 CREATE SCHEMA event;
 
-CREATE SEQUENCE event.event_sequence_number;
+CREATE SEQUENCE event.event_id_sequence;
 CREATE TABLE event.events (
   event_id   BIGINT    NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   CONSTRAINT pk_events PRIMARY KEY (event_id)
 );
 
-CREATE SEQUENCE event.event_revision_sequence_number;
+CREATE SEQUENCE event.event_revision_id_sequence;
 CREATE TABLE event.event_revisions (
   event_revision_id     BIGINT       NOT NULL,
   event_id              BIGINT       NOT NULL,
@@ -36,10 +36,10 @@ CREATE TABLE event.closed_events (
   CONSTRAINT fk_close_events_to_events FOREIGN KEY (event_id) REFERENCES event.events (event_id)
 );
 
-CREATE TABLE event.event_x_account (
+CREATE TABLE event.event_owner_accounts (
   event_id   BIGINT NOT NULL,
   account_id BIGINT NOT NULL,
-  CONSTRAINT pk_relations PRIMARY KEY (event_id, account_id),
-  CONSTRAINT fk_relations_to_events FOREIGN KEY (event_id) REFERENCES event.events (event_id),
-  CONSTRAINT fk_relations_to_accounts FOREIGN KEY (account_id) REFERENCES account.accounts (account_id)
+  CONSTRAINT pk_event_owner_accounts PRIMARY KEY (event_id, account_id),
+  CONSTRAINT fk_event_owner_accounts_to_events FOREIGN KEY (event_id) REFERENCES event.events (event_id),
+  CONSTRAINT fk_event_owner_accounts_to_accounts FOREIGN KEY (account_id) REFERENCES account.accounts (account_id)
 );

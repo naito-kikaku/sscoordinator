@@ -2,19 +2,23 @@ package naitokikaku.sscoordinator.domain.model.account;
 
 import naitokikaku.sscoordinator.domain.model.account.identity.AccountId;
 import naitokikaku.sscoordinator.domain.model.account.password.EncryptPassword;
+import naitokikaku.sscoordinator.domain.model.account.revision.AccountNameRevisionId;
+import naitokikaku.sscoordinator.domain.model.account.revision.AccountRevision;
+import naitokikaku.sscoordinator.domain.model.account.revision.EmailAddressRevisionId;
+import naitokikaku.sscoordinator.domain.model.account.revision.PasswordRevisionId;
 import naitokikaku.sscoordinator.domain.model.fundamentals.email.EmailAddress;
 
 public interface AccountRepository {
 
-    void store(Account account, EncryptPassword encryptPassword);
+    AccountRevision store(Account account);
 
-    void update(Account account);
+    AccountRevision update(AccountName accountName);
 
-    void update(EncryptPassword encryptPassword);
+    AccountRevision update(EmailAddress emailAddress);
 
-    void delete(AccountId accountId);
+    AccountRevision update(EncryptPassword encryptPassword);
+
+    AccountRevision delete(AccountId accountId);
 
     boolean alreadyUsed(EmailAddress emailAddress);
-
-    void reserve(EmailAddress emailAddress);
 }

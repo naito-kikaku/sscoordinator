@@ -1,17 +1,17 @@
-package naitokikaku.sscoordinator.domain.model.account.status;
+package naitokikaku.sscoordinator.domain.model.account.revision;
 
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
 @EqualsAndHashCode
-public class AccountStatus implements Serializable {
-    EnableClass value;
+public class PasswordRevisionId implements Serializable {
+    Long value;
 
-    public AccountStatus() {
+    public PasswordRevisionId() {
     }
 
-    public AccountStatus(EnableClass value) {
+    public PasswordRevisionId(Long value) {
         this.value = value;
     }
 
