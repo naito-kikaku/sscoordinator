@@ -3,7 +3,7 @@ package naitokikaku.sscoordinator.infrastructure.datasource.account.snapshot;
 import naitokikaku.sscoordinator.domain.model.account.identity.AccountId;
 import naitokikaku.sscoordinator.domain.model.account.revision.AccountRevision;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshot;
-import naitokikaku.sscoordinator.domain.model.fundamentals.email.EmailAddress;
+import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

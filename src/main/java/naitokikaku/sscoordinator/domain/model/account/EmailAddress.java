@@ -1,4 +1,4 @@
-package naitokikaku.sscoordinator.domain.model.fundamentals.email;
+package naitokikaku.sscoordinator.domain.model.account;
 
 import lombok.EqualsAndHashCode;
 

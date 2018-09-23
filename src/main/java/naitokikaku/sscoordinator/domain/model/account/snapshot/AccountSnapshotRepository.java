@@ -1,7 +1,7 @@
 package naitokikaku.sscoordinator.domain.model.account.snapshot;
 
 import naitokikaku.sscoordinator.domain.model.account.identity.AccountId;
-import naitokikaku.sscoordinator.domain.model.fundamentals.email.EmailAddress;
+import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
 
 public interface AccountSnapshotRepository {
 

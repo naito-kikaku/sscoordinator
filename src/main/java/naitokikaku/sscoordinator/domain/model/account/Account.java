@@ -4,7 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import naitokikaku.sscoordinator.domain.model.account.identity.AccountId;
 import naitokikaku.sscoordinator.domain.model.account.password.EncryptPassword;
-import naitokikaku.sscoordinator.domain.model.fundamentals.email.EmailAddress;
 
 import java.io.Serializable;
 

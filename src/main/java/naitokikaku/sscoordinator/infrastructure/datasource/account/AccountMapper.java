@@ -9,7 +9,7 @@ import naitokikaku.sscoordinator.domain.model.account.revision.EmailAddressRevis
 import naitokikaku.sscoordinator.domain.model.account.revision.PasswordRevisionId;
 import naitokikaku.sscoordinator.domain.model.fundamentals.datetime.CreatedDateTime;
 import naitokikaku.sscoordinator.domain.model.fundamentals.datetime.RevisedDateTime;
-import naitokikaku.sscoordinator.domain.model.fundamentals.email.EmailAddress;
+import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

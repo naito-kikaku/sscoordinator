@@ -8,7 +8,7 @@ import naitokikaku.sscoordinator.domain.model.account.password.EncryptPassword;
 import naitokikaku.sscoordinator.domain.model.account.revision.*;
 import naitokikaku.sscoordinator.domain.model.fundamentals.datetime.CreatedDateTime;
 import naitokikaku.sscoordinator.domain.model.fundamentals.datetime.RevisedDateTime;
-import naitokikaku.sscoordinator.domain.model.fundamentals.email.EmailAddress;
+import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;

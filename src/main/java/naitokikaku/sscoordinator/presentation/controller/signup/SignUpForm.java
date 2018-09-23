@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import naitokikaku.sscoordinator.domain.model.account.AccountName;
 import naitokikaku.sscoordinator.domain.model.account.password.RawPassword;
-import naitokikaku.sscoordinator.domain.model.fundamentals.email.EmailAddress;
+import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
 
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;

@@ -2,7 +2,6 @@ package naitokikaku.sscoordinator.domain.model.account;
 
 import naitokikaku.sscoordinator.domain.model.account.password.EncryptPassword;
 import naitokikaku.sscoordinator.domain.model.account.password.RawPassword;
-import naitokikaku.sscoordinator.domain.model.fundamentals.email.EmailAddress;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
