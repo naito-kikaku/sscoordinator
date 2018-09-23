@@ -24,7 +24,15 @@ public class AccountSnapshot implements Serializable {
         this.revision = revision;
     }
 
+    public Account account() {
+        return account;
+    }
+
     public AccountRevision revision() {
         return revision;
+    }
+
+    public AccountStatus accountStatus() {
+        return accountStatus;
     }
 }

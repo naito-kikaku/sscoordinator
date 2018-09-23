@@ -40,11 +40,6 @@ public class SignUpFormController {
     @GetMapping
     public String index(Model model) {
         model.addAttribute("signUpForm", new SignUpForm());
-        return "redirect:/signup?editing";
-    }
-
-    @GetMapping(params = "editing")
-    public String edit(@ModelAttribute("signUpForm") SignUpForm signUpForm) {
         return "signup";
     }
 
