@@ -1,6 +1,6 @@
 package naitokikaku.sscoordinator.presentation.controller.signup;
 
-import naitokikaku.sscoordinator.application.usecase.account.RegisterAccount;
+import naitokikaku.sscoordinator.application.usecase.account.signup.SignUp;
 import naitokikaku.sscoordinator.domain.model.account.Account;
 import naitokikaku.sscoordinator.domain.model.account.AccountFactory;
 import naitokikaku.sscoordinator.domain.model.account.password.EncryptPassword;
@@ -56,9 +56,7 @@ public class SignUpFormController {
     @Resource
     AccountFactory accountFactory;
     @Resource
-    RegisterAccount registerAccount;
-    @Resource
-    PasswordEncoder passwordEncoder;
+    SignUp signUp;
 
     @PostMapping
     public String post(@Valid @ModelAttribute("signUpForm") SignUpForm signUpForm, BindingResult binding,
@@ -69,14 +67,13 @@ public class SignUpFormController {
             model.addAttribute("passwordPolicyViolation", passwordPolicyViolation);
             return "signup";
         }
-        Account account = accountFactory.create(signUpForm.accountName, signUpForm.emailAddress);
+        Account account = accountFactory.create(signUpForm.accountName, signUpForm.emailAddress, signUpForm.password);
         AccountPolicyViolations accountPolicyViolations = accountPolicy.valid(account);
         if (!accountPolicyViolations.isNothing()) {
             model.addAttribute("accountPolicyViolations", accountPolicyViolations);
             return "signup";
         }
-        String encryptPassword = passwordEncoder.encode(signUpForm.password.toString());
-        registerAccount.execute(account, new EncryptPassword(encryptPassword));
+        signUp.execute(account);
         status.setComplete();
         // TODO login authenticate
         return "redirect:/";

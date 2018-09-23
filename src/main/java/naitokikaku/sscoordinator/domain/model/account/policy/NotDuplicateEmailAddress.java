@@ -16,8 +16,8 @@ public class NotDuplicateEmailAddress {
     }
 
     public AccountPolicyViolation valid(Account account) {
-        boolean duplicatedEmail = accountRepository.alreadyUsed(account.emailAddress());
-        if (duplicatedEmail) return new AccountPolicyViolation("すでに登録されているメールアドレスです");
+        boolean duplicated = accountRepository.alreadyUsed(account.emailAddress());
+        if (duplicated) return new AccountPolicyViolation("すでに登録されているメールアドレスです");
         return new AccountPolicyViolation();
     }
 }
