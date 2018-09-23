@@ -20,14 +20,19 @@
             <section class="ui segment">
                 <h3 class="ui header">Login Form</h3>
                 <div class="ui divider"></div>
-                <form method="post" action="#" class="ui form">
-                    <div class="required field">
+                <section class="ui error message" th:if="${errorMessage}">
+                    <h2 class="header">Errors</h2>
+                    <p th:text="${errorMessage}">Input is incorrect</p>
+                </section>
+                <form method="post" action="#" th:action="@{/login}" class="ui form"
+                      th:classappend="${errorMessage} ? 'error'">
+                    <div class="required field" th:classappend="${errorMessage} ? 'error'">
                         <label>Email</label>
-                        <input placeholder="example@example.com" type="email"/>
+                        <input placeholder="example@example.com" type="email" name="emailAddress" th:value="${emailAddress}"/>
                     </div>
-                    <div class="required field">
+                    <div class="required field" th:classappend="${errorMessage} ? 'error'">
                         <label>Password</label>
-                        <input placeholder="******" type="password"/>
+                        <input placeholder="******" type="password" name="password"/>
                     </div>
                     <button class="ui primary button" type="submit" name="login">Login</button>
                 </form>

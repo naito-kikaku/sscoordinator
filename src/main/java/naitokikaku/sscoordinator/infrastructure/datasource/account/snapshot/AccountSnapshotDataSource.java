@@ -3,6 +3,7 @@ package naitokikaku.sscoordinator.infrastructure.datasource.account.snapshot;
 import naitokikaku.sscoordinator.domain.model.account.identity.AccountId;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshot;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshotRepository;
+import naitokikaku.sscoordinator.domain.model.fundamentals.email.EmailAddress;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -24,5 +25,10 @@ public class AccountSnapshotDataSource implements AccountSnapshotRepository {
     @Override
     public AccountSnapshot get(AccountId accountId) {
         return mapper.findLatestById(accountId);
+    }
+
+    @Override
+    public AccountSnapshot findBy(EmailAddress emailAddress) {
+        return mapper.findLatestByEmailAddress(emailAddress);
     }
 }

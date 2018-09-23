@@ -3,6 +3,7 @@ package naitokikaku.sscoordinator.infrastructure.datasource.account.snapshot;
 import naitokikaku.sscoordinator.domain.model.account.identity.AccountId;
 import naitokikaku.sscoordinator.domain.model.account.revision.AccountRevision;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshot;
+import naitokikaku.sscoordinator.domain.model.fundamentals.email.EmailAddress;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,4 +25,6 @@ public interface AccountSnapshotMapper {
                                        @Param("accountRevision") AccountRevision accountRevision);
 
     AccountSnapshot findLatestById(@Param("accountId") AccountId accountId);
+
+    AccountSnapshot findLatestByEmailAddress(@Param("emailAddress") EmailAddress emailAddress);
 }
