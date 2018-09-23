@@ -5,6 +5,7 @@ import naitokikaku.sscoordinator.domain.model.account.Account;
 import naitokikaku.sscoordinator.domain.model.account.AccountRepository;
 import naitokikaku.sscoordinator.domain.model.account.policy.AccountPolicy;
 import naitokikaku.sscoordinator.domain.model.account.revision.AccountRevision;
+import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshotRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

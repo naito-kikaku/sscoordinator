@@ -1,4 +1,4 @@
-package naitokikaku.sscoordinator.infrastructure.authenticate;
+package naitokikaku.sscoordinator.infrastructure.authentication;
 
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshot;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshotRepository;

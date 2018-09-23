@@ -7,6 +7,7 @@ import naitokikaku.sscoordinator.domain.model.account.password.policy.PasswordPo
 import naitokikaku.sscoordinator.domain.model.account.password.policy.PasswordPolicyViolation;
 import naitokikaku.sscoordinator.domain.model.account.policy.AccountPolicy;
 import naitokikaku.sscoordinator.domain.model.account.policy.AccountPolicyViolations;
+import naitokikaku.sscoordinator.infrastructure.authentication.SSCoordinatorSecurityContext;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageInfo;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,8 @@ public class SignUpFormController {
     AccountFactory accountFactory;
     @Resource
     SignUp signUp;
+    @Resource
+    SSCoordinatorSecurityContext securityContext;
 
     @PostMapping
     public String post(@Valid @ModelAttribute("signUpForm") SignUpForm signUpForm, BindingResult binding,
@@ -61,8 +64,8 @@ public class SignUpFormController {
             return "signup";
         }
         signUp.execute(account);
+        securityContext.authenticate(signUpForm.emailAddress, signUpForm.password);
         status.setComplete();
-        // TODO login authenticate
         return "redirect:/home";
     }
 

@@ -3,7 +3,7 @@ package naitokikaku.sscoordinator.application.usecase.account.login.success;
 import naitokikaku.sscoordinator.domain.model.account.transaction.login.LoginTransaction;
 import naitokikaku.sscoordinator.domain.model.account.transaction.login.LoginTransactionFactory;
 import naitokikaku.sscoordinator.domain.model.account.transaction.login.LoginTransactionRepository;
-import naitokikaku.sscoordinator.infrastructure.authenticate.SSCoordinatorUserDetails;
+import naitokikaku.sscoordinator.infrastructure.authentication.SSCoordinatorUserDetails;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.stereotype.Component;

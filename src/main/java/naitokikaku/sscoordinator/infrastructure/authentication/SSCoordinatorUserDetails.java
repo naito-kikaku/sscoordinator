@@ -1,4 +1,4 @@
-package naitokikaku.sscoordinator.infrastructure.authenticate;
+package naitokikaku.sscoordinator.infrastructure.authentication;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
