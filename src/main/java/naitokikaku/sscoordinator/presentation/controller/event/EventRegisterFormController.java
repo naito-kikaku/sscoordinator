@@ -4,7 +4,7 @@ import naitokikaku.sscoordinator.application.usecase.event.RegisterEvent;
 import naitokikaku.sscoordinator.domain.model.event.Event;
 import naitokikaku.sscoordinator.domain.model.event.EventFactory;
 import naitokikaku.sscoordinator.domain.model.event.identity.EventId;
-import naitokikaku.sscoordinator.presentation.controller.IndexPageInfo;
+import naitokikaku.sscoordinator.presentation.controller.home.HomePageInfo;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.Breadcrumb;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageInfo;
 import org.springframework.stereotype.Controller;
@@ -32,7 +32,7 @@ public class EventRegisterFormController {
     @ModelAttribute("breadcrumb")
     public Breadcrumb breadcrumb() {
         return new Breadcrumb(Arrays.asList(
-                new IndexPageInfo(),
+                new HomePageInfo(),
                 new EventListPageInfo(),
                 new EventRegisterFormPageInfo()
         ));

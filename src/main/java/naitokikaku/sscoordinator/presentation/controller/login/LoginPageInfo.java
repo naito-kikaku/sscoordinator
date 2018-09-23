@@ -1,4 +1,4 @@
-package naitokikaku.sscoordinator.presentation.controller;
+package naitokikaku.sscoordinator.presentation.controller.login;
 
 import lombok.EqualsAndHashCode;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.IconName;
@@ -9,10 +9,10 @@ import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageU
 import java.io.Serializable;
 
 @EqualsAndHashCode
-public class IndexPageInfo implements Serializable, PageInfo {
-    PageName pageName = new PageName("Home");
-    PageURL pageURL = new PageURL("/");
-    IconName iconName = new IconName("home");
+public class LoginPageInfo implements Serializable, PageInfo {
+    PageName pageName = new PageName("Login");
+    PageURL pageURL = new PageURL("/login");
+    IconName iconName = new IconName("user");
 
     @Override
     public PageName pageName() {

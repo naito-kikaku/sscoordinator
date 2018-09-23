@@ -3,15 +3,12 @@ package naitokikaku.sscoordinator.presentation.controller.signup;
 import naitokikaku.sscoordinator.application.usecase.account.signup.SignUp;
 import naitokikaku.sscoordinator.domain.model.account.Account;
 import naitokikaku.sscoordinator.domain.model.account.AccountFactory;
-import naitokikaku.sscoordinator.domain.model.account.password.EncryptPassword;
 import naitokikaku.sscoordinator.domain.model.account.password.policy.PasswordPolicy;
 import naitokikaku.sscoordinator.domain.model.account.password.policy.PasswordPolicyViolation;
 import naitokikaku.sscoordinator.domain.model.account.policy.AccountPolicy;
 import naitokikaku.sscoordinator.domain.model.account.policy.AccountPolicyViolations;
-import naitokikaku.sscoordinator.presentation.controller.fundamentals.Breadcrumb;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageInfo;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,19 +29,9 @@ public class SignUpFormController {
         return new SignUpPageInfo();
     }
 
-    @ModelAttribute("breadcrumb")
-    public Breadcrumb breadcrumb() {
-        return new Breadcrumb();
-    }
-
     @GetMapping
     public String index(Model model) {
         model.addAttribute("signUpForm", new SignUpForm());
-        return "redirect:/signup?editing";
-    }
-
-    @GetMapping(params = "editing")
-    public String edit(@ModelAttribute("signUpForm") SignUpForm signUpForm) {
         return "signup";
     }
 
@@ -76,7 +63,7 @@ public class SignUpFormController {
         signUp.execute(account);
         status.setComplete();
         // TODO login authenticate
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @InitBinder

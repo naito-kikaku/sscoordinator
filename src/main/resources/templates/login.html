@@ -1,0 +1,43 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment/nonauthframe :: head"></head>
+<body>
+<nav th:replace="fragment/nonauthframe :: menubar"></nav>
+<div class="ui main container">
+    <header th:replace="fragment/nonauthframe :: page-header"></header>
+
+    <section class="ui stackable two column grid">
+        <div class="column">
+            <section class="ui segment">
+                <h3 class="ui header">Information</h3>
+                <div class="ui divider"></div>
+                <img class="ui image" th:src="@{/images/dummy/short-paragraph.png}">
+            </section>
+        </div>
+        <div class="column">
+            <section class="ui segment">
+                <h3 class="ui header">Login Form</h3>
+                <div class="ui divider"></div>
+                <form method="post" action="#" class="ui form">
+                    <div class="required field">
+                        <label>Email</label>
+                        <input placeholder="example@example.com" type="email"/>
+                    </div>
+                    <div class="required field">
+                        <label>Password</label>
+                        <input placeholder="******" type="password"/>
+                    </div>
+                    <button class="ui primary button" type="submit" name="login">Login</button>
+                </form>
+                <div class="ui divider"></div>
+                <a href="#" th:href="@{/signup}">>> to SignUp Form</a>
+            </section>
+        </div>
+    </section>
+
+</div>
+<footer th:replace="fragment/nonauthframe :: footer"></footer>
+</body>
+</html>

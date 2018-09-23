@@ -6,39 +6,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" th:href="@{/lib/semanticui/semantic.min.css}">
-    <link rel="stylesheet" th:href="@{/css/frame-customize.css}">
+    <link rel="stylesheet" th:href="@{/css/top-customize.css}">
     <script th:src="@{/lib/jquery/jquery-3.3.1.min.js}"></script>
     <script th:src="@{/lib/semanticui/semantic.min.js}"></script>
-    <title th:text="|SSCoordinator: ${pageInfo.pageName()}|">Dummy Title</title>
+    <title>SSCoordinator</title>
 </head>
+
 <body>
+
 <nav th:fragment="menubar" class="ui fixed inverted menu">
-    <a href="#" th:href="@{/home}" class="item">
+    <a href="#" th:href="@{/}" class="item">
         <i class="calendar alternate outline icon"></i>
         <span class="text">SSCoordinator</span>
-    </a>
-    <a href="#" class="item">
-        <i class="user icon"></i>
-    </a>
-    <a href="#" class="item">
-        <i class="bell icon"></i>
     </a>
 </nav>
 
 <div class="ui main container">
     <header th:fragment="page-header" class="ui header">
-        <div th:unless="${breadcrumb.isEmpty()}">
-            <div class="ui breadcrumb">
-                <th:block th:each="element, stat : ${breadcrumb.asList()}">
-                    <th:block th:unless="${stat.last}">
-                        <i class="icon" th:classappend="${element.iconName()}"></i>
-                        <a class="section" th:text="${element.pageName()}" th:href="@{${element.pageURL()}}">Home</a>
-                        <i class="right angle icon divider"></i>
-                    </th:block>
-                </th:block>
-            </div>
-            <div class="ui divider"></div>
-        </div>
         <i class="icon" th:classappend="${pageInfo.iconName()}"></i>
         <div class="content">
             <span th:text="${pageInfo.pageName()}">Dummy Index</span>

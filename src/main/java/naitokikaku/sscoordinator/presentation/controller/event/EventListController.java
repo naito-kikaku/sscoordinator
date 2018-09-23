@@ -4,7 +4,7 @@ import naitokikaku.sscoordinator.application.usecase.event.SearchEvent;
 import naitokikaku.sscoordinator.domain.model.event.criteria.EventCriteria;
 import naitokikaku.sscoordinator.domain.model.event.snapshot.EventSnapshots;
 import naitokikaku.sscoordinator.domain.model.fundamentals.pagination.request.Page;
-import naitokikaku.sscoordinator.presentation.controller.IndexPageInfo;
+import naitokikaku.sscoordinator.presentation.controller.home.HomePageInfo;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.Breadcrumb;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageInfo;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class EventListController {
     @ModelAttribute("breadcrumb")
     public Breadcrumb breadcrumb() {
         return new Breadcrumb(Arrays.asList(
-                new IndexPageInfo(),
+                new HomePageInfo(),
                 new EventListPageInfo()
         ));
     }

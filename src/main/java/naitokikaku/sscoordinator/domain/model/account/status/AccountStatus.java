@@ -15,6 +15,10 @@ public class AccountStatus implements Serializable {
         this.value = value;
     }
 
+    public boolean isEnable() {
+        return value == EnableClass.ENABLE;
+    }
+
     @Override
     public String toString() {
         if (value == null) return "";
