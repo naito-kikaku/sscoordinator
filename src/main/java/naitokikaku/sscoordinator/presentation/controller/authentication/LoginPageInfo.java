@@ -1,4 +1,4 @@
-package naitokikaku.sscoordinator.presentation.controller.login;
+package naitokikaku.sscoordinator.presentation.controller.authentication;
 
 import lombok.EqualsAndHashCode;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.IconName;

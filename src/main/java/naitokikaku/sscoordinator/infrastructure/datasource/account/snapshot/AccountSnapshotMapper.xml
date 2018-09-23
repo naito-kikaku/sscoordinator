@@ -29,31 +29,59 @@
     </resultMap>
 
     <select id="findLatestById" resultMap="AccountSnapshot">
-        SELECT *
-        FROM (SELECT account_snapshots.account_snapshot_id,
-                     account_snapshots.account_id,
-                     account_snapshots.account_name,
-                     account_snapshots.email_address,
-                     account_snapshots.password,
-                     account_statuses.account_status,
-                     account_snapshots.account_deleted_at,
-                     account_snapshots.account_revised_at,
-                     account_snapshots.account_created_at,
-                     snapshot_x_account_name_revision.account_name_revision_id,
-                     snapshot_x_email_address_revision.email_address_revision_id,
-                     snapshot_x_password_revision.password_revision_id
-              FROM account_snapshot.account_snapshots
-                       JOIN account_snapshot.account_statuses
-                           ON account_snapshots.account_status_id = account_statuses.account_status_id
-                       JOIN account_snapshot.snapshot_x_account_name_revision ON account_snapshots.account_snapshot_id =
-                                                                                 snapshot_x_account_name_revision.account_snapshot_id
-                       JOIN account_snapshot.snapshot_x_email_address_revision
-                           ON account_snapshots.account_snapshot_id =
-                              snapshot_x_email_address_revision.account_snapshot_id
-                       JOIN account_snapshot.snapshot_x_password_revision
-                           ON account_snapshots.account_snapshot_id = snapshot_x_password_revision.account_snapshot_id
-              WHERE account_snapshots.account_id = #{accountId.value}) snapshots
-        WHERE snapshots.account_snapshot_id = MAX(snapshots.account_snapshot_id)
+        SELECT account_snapshots.account_snapshot_id,
+               account_snapshots.account_id,
+               account_snapshots.account_name,
+               account_snapshots.email_address,
+               account_snapshots.password,
+               account_statuses.account_status,
+               account_snapshots.account_deleted_at,
+               account_snapshots.account_revised_at,
+               account_snapshots.account_created_at,
+               snapshot_x_account_name_revision.account_name_revision_id,
+               snapshot_x_email_address_revision.email_address_revision_id,
+               snapshot_x_password_revision.password_revision_id
+        FROM account_snapshot.account_snapshots
+                 JOIN account_snapshot.account_statuses
+                     ON account_snapshots.account_status_id = account_statuses.account_status_id
+                 JOIN account_snapshot.snapshot_x_account_name_revision
+                     ON account_snapshots.account_snapshot_id = snapshot_x_account_name_revision.account_snapshot_id
+                 JOIN account_snapshot.snapshot_x_email_address_revision
+                     ON account_snapshots.account_snapshot_id = snapshot_x_email_address_revision.account_snapshot_id
+                 JOIN account_snapshot.snapshot_x_password_revision
+                     ON account_snapshots.account_snapshot_id = snapshot_x_password_revision.account_snapshot_id
+                 JOIN (SELECT MAX(account_snapshot.account_snapshots.account_snapshot_id) account_snapshot_id
+                       FROM account_snapshot.account_snapshots
+                       WHERE account_snapshots.account_id = #{accountId.value}) latest
+                     ON latest.account_snapshot_id = account_snapshots.account_snapshot_id
+    </select>
+
+    <select id="findLatestByEmailAddress" resultMap="AccountSnapshot">
+        SELECT account_snapshots.account_snapshot_id,
+               account_snapshots.account_id,
+               account_snapshots.account_name,
+               account_snapshots.email_address,
+               account_snapshots.password,
+               account_statuses.account_status,
+               account_snapshots.account_deleted_at,
+               account_snapshots.account_revised_at,
+               account_snapshots.account_created_at,
+               snapshot_x_account_name_revision.account_name_revision_id,
+               snapshot_x_email_address_revision.email_address_revision_id,
+               snapshot_x_password_revision.password_revision_id
+        FROM account_snapshot.account_snapshots
+                 JOIN account_snapshot.account_statuses
+                     ON account_snapshots.account_status_id = account_statuses.account_status_id
+                 JOIN account_snapshot.snapshot_x_account_name_revision
+                     ON account_snapshots.account_snapshot_id = snapshot_x_account_name_revision.account_snapshot_id
+                 JOIN account_snapshot.snapshot_x_email_address_revision
+                     ON account_snapshots.account_snapshot_id = snapshot_x_email_address_revision.account_snapshot_id
+                 JOIN account_snapshot.snapshot_x_password_revision
+                     ON account_snapshots.account_snapshot_id = snapshot_x_password_revision.account_snapshot_id
+                 JOIN (SELECT MAX(account_snapshot.account_snapshots.account_snapshot_id) account_snapshot_id
+                       FROM account_snapshot.account_snapshots
+                       WHERE account_snapshots.email_address = #{emailAddress.value}) latest
+                     ON latest.account_snapshot_id = account_snapshots.account_snapshot_id
     </select>
 
     <select id="nextSnapshotId" resultType="Long">

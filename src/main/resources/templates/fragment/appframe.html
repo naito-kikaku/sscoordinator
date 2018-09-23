@@ -18,11 +18,21 @@
         <span class="text">SSCoordinator</span>
     </a>
     <a href="#" class="item">
-        <i class="user icon"></i>
-    </a>
-    <a href="#" class="item">
         <i class="bell icon"></i>
     </a>
+    <div class="ui simple dropdown item">
+        <i class="user icon"></i><i class="dropdown icon"></i>
+        <div class="ui menu">
+            <div class="item">Action</div>
+            <div class="item">Action</div>
+            <div class="divider"></div>
+            <div class="item">
+                <form name="" action="#" th:action="@{/logout}" method="post">
+                    <button type="submit" class="ui button">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </nav>
 
 <div class="ui main container">
@@ -51,6 +61,9 @@
 
 <footer th:fragment="footer" class="ui vertical footer segment">
     <div class="ui divider"></div>
+    <div class="ui center aligned container">
+        <a href="#" th:href="@{/}">TopPage</a>
+    </div>
     <div class="ui center aligned container">
         &copy; 2018 MIT license. produced By <a href="https://github.com/naito-kikaku">Naito-Kikaku</a>
     </div>
