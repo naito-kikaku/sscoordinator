@@ -3,7 +3,7 @@ package naitokikaku.sscoordinator.infrastructure.datasource.account.snapshot;
 import naitokikaku.sscoordinator.domain.model.account.identity.AccountId;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshot;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshotRepository;
-import naitokikaku.sscoordinator.domain.model.fundamentals.email.EmailAddress;
+import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;

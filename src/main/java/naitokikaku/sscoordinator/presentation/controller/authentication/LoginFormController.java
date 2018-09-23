@@ -18,7 +18,7 @@ public class LoginFormController {
     }
 
     @GetMapping
-    public String index(Model model) {
+    public String index() {
         return "login";
     }
 

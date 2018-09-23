@@ -8,23 +8,23 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @ToString
 public class EventStatus implements Serializable {
-    EventStatusType type;
+    OpenClass value;
     ClosedDateTime closedDateTime = new ClosedDateTime();
 
     public EventStatus() {
     }
 
-    public EventStatus(EventStatusType type, ClosedDateTime closedDateTime) {
-        this.type = type;
+    public EventStatus(OpenClass value, ClosedDateTime closedDateTime) {
+        this.value = value;
         this.closedDateTime = closedDateTime;
     }
 
     public boolean isClosed() {
-        return type == EventStatusType.CLOSED;
+        return value == OpenClass.CLOSED;
     }
 
     public boolean isOpen() {
-        return type == EventStatusType.OPEN;
+        return value == OpenClass.OPEN;
     }
 
     public String asText() {

@@ -9,7 +9,7 @@
         <result property="eventId.value" column="event_id"/>
         <result property="eventName.value" column="event_name"/>
         <result property="eventDescription.value" column="event_description"/>
-        <result property="eventStatus.type" column="event_status"/>
+        <result property="eventStatus.value" column="event_status"/>
         <result property="eventStatus.closedDateTime.value" column="closed_at"/>
         <result property="revision.revisionId.value" column="event_revision_id"/>
         <result property="revision.revisionNumber.value" column="event_revision_number"/>

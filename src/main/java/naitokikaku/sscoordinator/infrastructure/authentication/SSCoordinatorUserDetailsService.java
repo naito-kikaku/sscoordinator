@@ -1,8 +1,8 @@
-package naitokikaku.sscoordinator.infrastructure.authenticate;
+package naitokikaku.sscoordinator.infrastructure.authentication;
 
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshot;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshotRepository;
-import naitokikaku.sscoordinator.domain.model.fundamentals.email.EmailAddress;
+import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

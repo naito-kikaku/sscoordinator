@@ -1,6 +1,6 @@
 package naitokikaku.sscoordinator.domain.model.event.status;
 
-public enum EventStatusType {
+public enum OpenClass {
     OPEN,
     CLOSED
 }

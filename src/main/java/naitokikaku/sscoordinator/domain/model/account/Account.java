@@ -4,7 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import naitokikaku.sscoordinator.domain.model.account.identity.AccountId;
 import naitokikaku.sscoordinator.domain.model.account.password.EncryptPassword;
-import naitokikaku.sscoordinator.domain.model.fundamentals.email.EmailAddress;
 
 import java.io.Serializable;
 
@@ -28,6 +27,10 @@ public class Account implements Serializable {
         this.name = name;
         this.emailAddress = emailAddress;
         this.password = password;
+    }
+
+    public AccountId id() {
+        return id;
     }
 
     public EmailAddress emailAddress() {

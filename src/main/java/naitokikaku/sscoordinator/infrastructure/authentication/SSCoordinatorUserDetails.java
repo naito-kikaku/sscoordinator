@@ -1,7 +1,8 @@
-package naitokikaku.sscoordinator.infrastructure.authenticate;
+package naitokikaku.sscoordinator.infrastructure.authentication;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import naitokikaku.sscoordinator.domain.model.account.identity.AccountId;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshot;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,10 @@ public class SSCoordinatorUserDetails implements UserDetails {
     SSCoordinatorUserDetails(AccountSnapshot accountSnapshot, List<GrantedAuthority> authorities) {
         this.accountSnapshot = accountSnapshot;
         this.authorities = authorities;
+    }
+
+    public AccountId accountId() {
+        return accountSnapshot.account().id();
     }
 
     @Override
