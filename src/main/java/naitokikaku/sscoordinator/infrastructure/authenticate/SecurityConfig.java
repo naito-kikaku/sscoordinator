@@ -1,4 +1,4 @@
-package naitokikaku.sscoordinator;
+package naitokikaku.sscoordinator.infrastructure.authenticate;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
