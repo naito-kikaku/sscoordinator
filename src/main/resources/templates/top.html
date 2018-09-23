@@ -1,0 +1,50 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment/nonauthframe :: head"></head>
+<body>
+<nav th:replace="fragment/nonauthframe :: menubar"></nav>
+<div class="ui main container">
+    <header class="ui inverted header vertical masthead center aligned segment">
+        <div class="ui text container">
+            <h1 class="ui inverted header">SSCoordinator</h1>
+            <h2>Secure Schedule Coordinator</h2>
+            <p>
+                <img class="ui image" th:src="@{/images/dummy/short-paragraph.png}">
+            </p>
+            <a href="#" th:href="@{/signup}" class="ui labeled icon huge primary button">
+                <i class="icon user plus"></i>
+                SignUp
+            </a>
+            <a href="#" th:href="@{/login}" class="ui labeled icon huge button">
+                <i class="icon user"></i>
+                Login
+            </a>
+            <a href="#" th:href="@{/home}" class="ui labeled icon huge button">
+                <i class="icon home"></i>
+                Home(TODO: REMOVE)
+            </a>
+        </div>
+    </header>
+    <div class="ui vertical stripe segment">
+        <div class="ui middle aligned stackable grid container">
+            <div class="row">
+                <div class="eight wide column">
+                    <h3 class="ui header">Dummy Title1</h3>
+                    <img class="ui image" th:src="@{/images/dummy/short-paragraph.png}">
+                    <h3 class="ui header">Dummy Title2</h3>
+                    <img class="ui image" th:src="@{/images/dummy/short-paragraph.png}">
+                </div>
+                <div class="six wide right floated column">
+                    <img class="ui large bordered rounded image" th:src="@{/images/dummy/white-image.png}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="fragment/nonauthframe :: footer"></footer>
+
+</body>
+</html>
