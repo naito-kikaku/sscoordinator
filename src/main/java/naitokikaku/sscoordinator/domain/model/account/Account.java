@@ -48,4 +48,16 @@ public class Account implements Serializable {
     public void fix(AccountId accountId) {
         this.id = accountId;
     }
+
+    public Account replace(AccountName accountName) {
+        return new Account(this.id, accountName, this.emailAddress, this.password);
+    }
+
+    public Account replace(EmailAddress emailAddress) {
+        return new Account(this.id, this.name, emailAddress, this.password);
+    }
+
+    public Account replace(EncryptPassword password) {
+        return new Account(this.id, this.name, this.emailAddress, password);
+    }
 }

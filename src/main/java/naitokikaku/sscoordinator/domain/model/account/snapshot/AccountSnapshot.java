@@ -5,6 +5,7 @@ import lombok.ToString;
 import naitokikaku.sscoordinator.domain.model.account.Account;
 import naitokikaku.sscoordinator.domain.model.account.AccountName;
 import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
+import naitokikaku.sscoordinator.domain.model.account.password.EncryptPassword;
 import naitokikaku.sscoordinator.domain.model.account.revision.AccountRevision;
 import naitokikaku.sscoordinator.domain.model.account.status.AccountStatus;
 
@@ -34,6 +35,10 @@ public class AccountSnapshot implements Serializable {
         return account.emailAddress();
     }
 
+    public EncryptPassword password() {
+        return account.password();
+    }
+
     public Account account() {
         return account;
     }
@@ -45,4 +50,6 @@ public class AccountSnapshot implements Serializable {
     public AccountStatus accountStatus() {
         return accountStatus;
     }
+
+
 }

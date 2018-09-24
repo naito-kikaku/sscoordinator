@@ -17,4 +17,8 @@ public interface AccountRepository {
     AccountRevision delete(AccountId accountId);
 
     boolean alreadyUsed(EmailAddress emailAddress);
+
+    void storeActive(EmailAddress emailAddress);
+
+    void deleteActive(EmailAddress emailAddress);
 }

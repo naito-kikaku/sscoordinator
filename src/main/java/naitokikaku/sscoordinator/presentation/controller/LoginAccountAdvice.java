@@ -11,13 +11,14 @@ import javax.annotation.Resource;
 @ControllerAdvice(basePackages = {
         "naitokikaku.sscoordinator.presentation.controller.home"
         , "naitokikaku.sscoordinator.presentation.controller.event"
+        , "naitokikaku.sscoordinator.presentation.controller.account"
 })
 public class LoginAccountAdvice {
 
     @Resource
     AccountSnapshotRepository accountSnapshotRepository;
 
-    @ModelAttribute("account")
+    @ModelAttribute("accountSnapshot")
     public AccountSnapshot account() {
         return accountSnapshotRepository.get();
     }

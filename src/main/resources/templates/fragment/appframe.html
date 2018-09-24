@@ -25,20 +25,18 @@
     <div class="ui simple dropdown item">
         <i class="user icon"></i><i class="dropdown icon"></i>
         <div class="ui menu">
-            <div class="item">
-                <p>
-                    <span th:text="${account.accountName()}"></span><br/>
-                    <span th:text="${account.emailAddress()}"></span>
-                </p>
-            </div>
-            <div class="divider"></div>
-            <div class="item">Action1</div>
-            <div class="item">Action2</div>
+            <a href="#" th:href="@{/myaccount/profile}" class="item">
+                <span th:text="${accountSnapshot.accountName()}"></span><br/>
+                <span th:text="${accountSnapshot.emailAddress()}"></span>
+            </a>
             <div class="divider"></div>
             <div class="item">
-                <form name="" action="#" th:action="@{/logout}" method="post">
-                    <button type="submit" class="ui button centered aligned">Logout</button>
-                </form>
+                <div class="ui buttons">
+                    <form name="logout" action="#" th:action="@{/logout}" method="post">
+                        <button type="submit" name="logout" class="ui button">Logout</button>
+                        <a href="#" th:href="@{/login}" class="ui button">Switch Account</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

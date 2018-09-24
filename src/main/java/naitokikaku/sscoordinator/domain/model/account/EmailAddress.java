@@ -24,4 +24,8 @@ public class EmailAddress implements Serializable {
         if (value == null) return "";
         return value;
     }
+
+    public boolean same(EmailAddress other) {
+        return this.equals(other);
+    }
 }

@@ -12,11 +12,10 @@ INSERT INTO account_transaction.account_transaction_types (account_transaction_t
                                                            account_transaction_type,
                                                            desctiption)
 VALUES (1, 'SIGN_UP', 'サインアップ'),
-       (2, 'LOGIN', 'ログイン'),
-       (3, 'CHANGE_ACCOUNT_NAME', 'アカウント名変更'),
-       (4, 'CHANGE_EMAIL_ADDRESS', 'メールアドレス変更'),
-       (5, 'CHANGE_PASSWORD', 'パスワード変更'),
-       (6, 'DELETE', '削除');
+       (2, 'CHANGE_ACCOUNT_NAME', 'アカウント名変更'),
+       (3, 'CHANGE_EMAIL_ADDRESS', 'メールアドレス変更'),
+       (4, 'CHANGE_PASSWORD', 'パスワード変更'),
+       (5, 'DELETE', '削除');
 
 CREATE SEQUENCE account_transaction.account_transaction_id_sequence;
 CREATE TABLE account_transaction.account_transactions (

@@ -20,4 +20,8 @@ public class EncryptPassword implements Serializable {
         if (value == null) return "";
         return value;
     }
+
+    public boolean same(EncryptPassword password) {
+        return this.equals(password);
+    }
 }

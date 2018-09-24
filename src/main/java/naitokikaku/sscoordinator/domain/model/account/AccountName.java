@@ -24,4 +24,8 @@ public class AccountName implements Serializable {
         if (value == null) return "";
         return value;
     }
+
+    public boolean same(AccountName other) {
+        return this.equals(other);
+    }
 }
