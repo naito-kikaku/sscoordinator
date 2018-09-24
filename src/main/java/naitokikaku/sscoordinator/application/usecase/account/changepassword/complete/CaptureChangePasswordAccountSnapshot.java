@@ -1,4 +1,4 @@
-package naitokikaku.sscoordinator.application.usecase.account.signup.complete;
+package naitokikaku.sscoordinator.application.usecase.account.changepassword.complete;
 
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshot;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshotFactory;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 
 @Component
-public class CaptureAccountSnapshot {
+public class CaptureChangePasswordAccountSnapshot {
     @Resource
     AccountSnapshotFactory accountSnapshotFactory;
     @Resource
@@ -20,8 +20,8 @@ public class CaptureAccountSnapshot {
 
     @EventListener
     @Transactional
-    public void execute(SignUpCompleteEvent event) {
-        AccountSnapshot accountSnapshot = accountSnapshotFactory.create(event.account, new AccountStatus(EnableClass.ENABLE), event.revision);
-        accountSnapshotRepository.capture(accountSnapshot);
+    public void execute(ChangePasswordCompleteEvent event) {
+        AccountSnapshot snapshot = accountSnapshotFactory.create(event.account, new AccountStatus(EnableClass.ENABLE), event.revision);
+        accountSnapshotRepository.capture(snapshot);
     }
 }

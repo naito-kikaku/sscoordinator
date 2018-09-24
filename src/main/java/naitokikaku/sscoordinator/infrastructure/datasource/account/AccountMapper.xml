@@ -6,11 +6,11 @@
 <mapper namespace="naitokikaku.sscoordinator.infrastructure.datasource.account.AccountMapper">
 
     <resultMap id="AccountId" type="naitokikaku.sscoordinator.domain.model.account.identity.AccountId">
-        <result property="value" column="next_account_id"/>
+        <result property="value" column="account_id"/>
     </resultMap>
 
     <select id="nextAccountId" resultMap="AccountId">
-        SELECT nextval('account.account_id_sequence') as next_account_id
+        SELECT nextval('account.account_id_sequence') as account_id
     </select>
 
     <insert id="store">
@@ -20,11 +20,11 @@
 
     <resultMap id="AccountNameRevisionId"
                type="naitokikaku.sscoordinator.domain.model.account.revision.AccountNameRevisionId">
-        <result property="value" column="next_account_name_revision_id"/>
+        <result property="value" column="account_name_revision_id"/>
     </resultMap>
 
     <select id="nextAccountNameRevisionId" resultMap="AccountNameRevisionId">
-        SELECT nextval('account.account_name_revision_id_sequence') as next_account_name_revision_id
+        SELECT nextval('account.account_name_revision_id_sequence') as account_name_revision_id
     </select>
 
     <insert id="storeNameRevision">
@@ -39,11 +39,11 @@
 
     <resultMap id="EmailAddressRevisionId"
                type="naitokikaku.sscoordinator.domain.model.account.revision.EmailAddressRevisionId">
-        <result property="value" column="next_email_address_revision_id"/>
+        <result property="value" column="email_address_revision_id"/>
     </resultMap>
 
     <select id="nextEmailAddressRevisionId" resultMap="EmailAddressRevisionId">
-        SELECT nextval('account.email_address_revision_id_sequence') as next_email_address_revision_id
+        SELECT nextval('account.email_address_revision_id_sequence') as email_address_revision_id
     </select>
 
     <insert id="storeEmailAddressRevision">
@@ -58,11 +58,11 @@
 
     <resultMap id="PasswordRevisionId"
                type="naitokikaku.sscoordinator.domain.model.account.revision.PasswordRevisionId">
-        <result property="value" column="next_password_revision_id"/>
+        <result property="value" column="password_revision_id"/>
     </resultMap>
 
     <select id="nextPasswordRevisionId" resultMap="PasswordRevisionId">
-        SELECT nextval('account.password_revision_id_sequence') as next_password_revision_id
+        SELECT nextval('account.password_revision_id_sequence') as password_revision_id
     </select>
 
     <insert id="storePasswordRevision">
@@ -125,5 +125,52 @@
         FROM account.deleted_accounts
         WHERE account_id = #{accountId.value}
     </select>
+
+    <select id="getLatestNameRevisionId" resultMap="AccountNameRevisionId">
+        SELECT account_name_revision_id
+        FROM account.latest_account_names
+        WHERE account_id = #{accountId.value}
+    </select>
+
+    <select id="getLatestEmailAddressRevisionId" resultMap="EmailAddressRevisionId">
+        SELECT email_address_revision_id
+        FROM account.latest_email_addresses
+        WHERE account_id = #{accountId.value}
+    </select>
+
+    <select id="getLatestPasswordRevisionId" resultMap="PasswordRevisionId">
+        SELECT password_revision_id
+        FROM account.latest_passwords
+        WHERE account_id = #{accountId.value}
+    </select>
+
+    <delete id="deleteLatestNamePointer">
+        DELETE
+        FROM account.latest_account_names
+        WHERE account_id = #{accountId.value}
+    </delete>
+
+    <delete id="deleteLatestEmailAddressPointer">
+        DELETE
+        FROM account.latest_email_addresses
+        WHERE account_id = #{accountId.value}
+    </delete>
+
+    <delete id="deleteLatestPasswordPointer">
+        DELETE
+        FROM account.latest_passwords
+        WHERE account_id = #{accountId.value}
+    </delete>
+
+    <delete id="deleteActiveEmailAddress">
+        DELETE
+        FROM account.active_email_addresses
+        WHERE email_address = #{emailAddress.value}
+    </delete>
+
+    <insert id="storeDeletePointer">
+        INSERT INTO account.deleted_accounts (account_id)
+        VALUES (#{accountId.value})
+    </insert>
 
 </mapper>

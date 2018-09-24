@@ -1,0 +1,223 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/appframe :: head"></head>
+<script>
+    $(function () {
+        $('#change-name-button').on('click', function () {
+            $('#change-name-dialog').modal('show');
+        });
+
+        $('#change-email-button').on('click', function () {
+            $('#change-email-dialog').modal('show');
+        });
+
+        $('#change-password-button').on('click', function () {
+            $('#change-password-dialog').modal('show');
+        });
+
+        $('#delete-account-button').on('click', function () {
+            $('#delete-confirm-dialog').modal('show');
+        });
+    });
+</script>
+<body>
+<nav th:replace="fragment/appframe :: menubar"></nav>
+<div class="ui main container">
+    <header th:replace="fragment/appframe :: page-header"></header>
+
+    <section class="ui success message" th:unless="${#strings.isEmpty(successMessage)}">
+        <p th:text="${successMessage}">success message</p>
+    </section>
+
+    <section class="ui error message" th:unless="${#strings.isEmpty(errorMessage)}">
+        <h2 class="header">Error</h2>
+        <p th:text="${errorMessage}">success message</p>
+    </section>
+
+    <section class="ui error message" th:if="${bindingErrors}">
+        <h2 class="header">Errors</h2>
+        <ul>
+            <li th:each="err : ${bindingErrors}" th:text="${err.defaultMessage}">Input is incorrect</li>
+        </ul>
+    </section>
+
+    <section class="ui error message" th:if="${passwordPolicyViolation}">
+        <h2 class="header">Errors</h2>
+        <p th:text="${passwordPolicyViolation.message()}">password policy violation message</p>
+    </section>
+
+    <section class="ui error message" th:if="${accountPolicyViolations}">
+        <h2 class="header">Errors</h2>
+        <ul>
+            <li th:each="err : ${accountPolicyViolations.messages()}" th:text="${err}">
+                account policy violation message
+            </li>
+        </ul>
+    </section>
+
+    <div class="ui column stackable grid">
+        <div class="three wide column">
+            <article class="ui vertical menu">
+                <a href="#" th:href="@{/myaccount/profile}" class="active item">
+                    Profile
+                </a>
+                <a href="#" class="item">
+                    Preference
+                </a>
+            </article>
+        </div>
+
+        <div class="thirteen wide column">
+            <article class="ui segments">
+                <section class="ui black segment">
+                    <div class="column">
+                        <h3 class="header">Profile</h3>
+                    </div>
+                </section>
+                <section class="ui segment">
+                    <div class="ui two column stackable grid">
+                        <div class="column">
+                            <div class="field">
+                                <h4>Name</h4>
+                                <p th:text="${accountSnapshot.accountName()}"></p>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="field">
+                                <h4>Email Address</h4>
+                                <p th:text="${accountSnapshot.emailAddress()}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="ui segment">
+                    <button id="change-name-button" class="ui primary button">
+                        Change Name
+                    </button>
+                    <button id="change-email-button" class="ui primary button">
+                        Change Email
+                    </button>
+                    <button id="change-password-button" class="ui primary button">
+                        Change Password
+                    </button>
+                </section>
+            </article>
+
+            <button id="delete-account-button" class="ui negative button right floated">
+                Delete Account
+            </button>
+        </div>
+    </div>
+
+    <article id="change-name-dialog" class="ui mini modal">
+        <i class="close icon"></i>
+        <section class="header">
+            Change Account Name
+        </section>
+        <section class="content">
+            <form id="name-form" class="ui form" method="post"
+                  th:object="${accountName}" th:action="@{/myaccount/profile?accountName}">
+                <div class="required field">
+                    <label>Name</label>
+                    <input type="text" th:field="*{value}"/>
+                </div>
+            </form>
+        </section>
+        <section class="actions">
+            <button type="submit" form="name-form" class="ui positive right labeled icon button">
+                OK, Change
+                <i class="checkmark icon"></i>
+            </button>
+            <button class="ui deny button">
+                Cancel
+            </button>
+        </section>
+    </article>
+
+    <article id="change-email-dialog" class="ui mini modal">
+        <i class="close icon"></i>
+        <section class="header">
+            Change Email Address
+        </section>
+        <section class="content">
+            <form id="email-form" class="ui form" method="post"
+                  th:object="${emailAddress}" th:action="@{/myaccount/profile?emailAddress}">
+                <div class="required field">
+                    <label>Email Address</label>
+                    <input type="email" th:field="*{value}"/>
+                </div>
+            </form>
+        </section>
+        <section class="actions">
+            <button type="submit" form="email-form" class="ui positive right labeled icon button">
+                OK, Change
+                <i class="checkmark icon"></i>
+            </button>
+            <button class="ui deny button">
+                Cancel
+            </button>
+        </section>
+    </article>
+
+    <article id="change-password-dialog" class="ui mini modal">
+        <i class="close icon"></i>
+        <section class="header">
+            Change Password
+        </section>
+        <section class="content">
+            <form id="password-form" class="ui form" method="post"
+                  th:object="${passwordForm}" th:action="@{/myaccount/profile?password}">
+                <div class="required field">
+                    <label>Current Password</label>
+                    <input type="password" th:field="*{currentPassword.value}"/>
+                </div>
+                <div class="required field">
+                    <label>New Password</label>
+                    <input type="password" th:field="*{newPassword.value}"/>
+                </div>
+                <div class="required field">
+                    <label>New Password(Confirm)</label>
+                    <input type="password" th:field="*{retypedNewPassword.value}"/>
+                </div>
+            </form>
+        </section>
+        <section class="actions">
+            <button type="submit" form="password-form" class="ui positive right labeled icon button">
+                OK, Change
+                <i class="checkmark icon"></i>
+            </button>
+            <button class="ui deny button">
+                Cancel
+            </button>
+        </section>
+    </article>
+
+    <article id="delete-confirm-dialog" class="ui mini basic modal">
+        <i class="close icon"></i>
+        <section class="header">
+            Really delete your account?
+        </section>
+        <section class="content">
+            <form id="delete-confirm-form" class="ui form" method="post" th:action="@{/myaccount/profile?delete}">
+            </form>
+            <ul>
+                <li>You never access your account.</li>
+                <li>We cannot recovery after delete account.</li>
+            </ul>
+        </section>
+        <section class="actions">
+            <button type="submit" form="delete-confirm-form" class="ui negative right labeled icon button">
+                OK, DELETE
+                <i class="checkmark icon"></i>
+            </button>
+            <button class="ui deny button">
+                Cancel
+            </button>
+        </section>
+    </article>
+
+</div>
+<footer th:replace="fragment/appframe :: footer"></footer>
+</body>
+</html>

@@ -34,4 +34,23 @@
                 #{signUpTransaction.accountRevision.passwordRevisionId.value})
     </insert>
 
+    <insert id="storeChangeName">
+        INSERT INTO account_transaction.change_account_name_transactions (account_transaction_id,
+                                                                          account_name_revision_id)
+        VALUES (#{accountTransactionId.value},
+                #{changeAccountNameTransaction.accountRevision.accountNameRevisionId.value})
+    </insert>
+
+    <insert id="storeChangeEmailAddress">
+        INSERT INTO account_transaction.change_email_address_transactions (account_transaction_id,
+                                                                           email_address_revision_id)
+        VALUES (#{accountTransactionId.value},
+                #{changeEmailAddressTransaction.accountRevision.emailAddressRevisionId.value})
+    </insert>
+
+    <insert id="storeChangePassword">
+        INSERT INTO account_transaction.change_password_transactions (account_transaction_id, password_revision_id)
+        VALUES (#{accountTransactionId.value}, #{changePasswordTransaction.accountRevision.passwordRevisionId.value})
+    </insert>
+
 </mapper>

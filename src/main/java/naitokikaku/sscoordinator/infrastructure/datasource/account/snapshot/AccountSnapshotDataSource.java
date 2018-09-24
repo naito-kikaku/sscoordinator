@@ -1,9 +1,9 @@
 package naitokikaku.sscoordinator.infrastructure.datasource.account.snapshot;
 
-import naitokikaku.sscoordinator.domain.model.account.identity.AccountId;
+import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshot;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshotRepository;
-import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
+import naitokikaku.sscoordinator.infrastructure.authentication.SSCoordinatorSecurityContext;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -12,6 +12,8 @@ import javax.annotation.Resource;
 public class AccountSnapshotDataSource implements AccountSnapshotRepository {
     @Resource
     AccountSnapshotMapper mapper;
+    @Resource
+    SSCoordinatorSecurityContext context;
 
     @Override
     public void capture(AccountSnapshot accountSnapshot) {
@@ -23,12 +25,12 @@ public class AccountSnapshotDataSource implements AccountSnapshotRepository {
     }
 
     @Override
-    public AccountSnapshot get(AccountId accountId) {
-        return mapper.findLatestById(accountId);
+    public AccountSnapshot findBy(EmailAddress emailAddress) {
+        return mapper.findLatestByEmailAddress(emailAddress);
     }
 
     @Override
-    public AccountSnapshot findBy(EmailAddress emailAddress) {
-        return mapper.findLatestByEmailAddress(emailAddress);
+    public AccountSnapshot get() {
+        return mapper.findLatestById(context.accountId());
     }
 }

@@ -1,6 +1,7 @@
 package naitokikaku.sscoordinator.infrastructure.datasource.account;
 
 import naitokikaku.sscoordinator.domain.model.account.AccountName;
+import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
 import naitokikaku.sscoordinator.domain.model.account.identity.AccountId;
 import naitokikaku.sscoordinator.domain.model.account.password.EncryptPassword;
 import naitokikaku.sscoordinator.domain.model.account.revision.AccountNameRevisionId;
@@ -9,7 +10,6 @@ import naitokikaku.sscoordinator.domain.model.account.revision.EmailAddressRevis
 import naitokikaku.sscoordinator.domain.model.account.revision.PasswordRevisionId;
 import naitokikaku.sscoordinator.domain.model.fundamentals.datetime.CreatedDateTime;
 import naitokikaku.sscoordinator.domain.model.fundamentals.datetime.RevisedDateTime;
-import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -60,4 +60,20 @@ public interface AccountMapper {
     RevisedDateTime getPasswordRevisionRevisedDateTime(@Param("passwordRevisionId") PasswordRevisionId passwordRevisionId);
 
     DeletedDateTime getAccountDeletedDateTime(@Param("accountId") AccountId accountId);
+
+    AccountNameRevisionId getLatestNameRevisionId(@Param("accountId") AccountId accountId);
+
+    EmailAddressRevisionId getLatestEmailAddressRevisionId(@Param("accountId") AccountId accountId);
+
+    PasswordRevisionId getLatestPasswordRevisionId(@Param("accountId") AccountId accountId);
+
+    void deleteLatestNamePointer(@Param("accountId") AccountId accountId);
+
+    void deleteLatestEmailAddressPointer(@Param("accountId") AccountId accountId);
+
+    void deleteLatestPasswordPointer(@Param("accountId") AccountId accountId);
+
+    void deleteActiveEmailAddress(@Param("emailAddress") EmailAddress emailAddress);
+
+    void storeDeletePointer(@Param("accountId") AccountId accountId);
 }

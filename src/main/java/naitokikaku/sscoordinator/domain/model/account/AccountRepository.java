@@ -1,6 +1,5 @@
 package naitokikaku.sscoordinator.domain.model.account;
 
-import naitokikaku.sscoordinator.domain.model.account.identity.AccountId;
 import naitokikaku.sscoordinator.domain.model.account.password.EncryptPassword;
 import naitokikaku.sscoordinator.domain.model.account.revision.AccountRevision;
 
@@ -14,7 +13,11 @@ public interface AccountRepository {
 
     AccountRevision update(EncryptPassword encryptPassword);
 
-    AccountRevision delete(AccountId accountId);
+    AccountRevision delete();
 
     boolean alreadyUsed(EmailAddress emailAddress);
+
+    void storeActive(EmailAddress emailAddress);
+
+    void deleteActive(EmailAddress emailAddress);
 }
