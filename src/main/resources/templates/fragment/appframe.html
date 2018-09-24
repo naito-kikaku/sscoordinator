@@ -11,7 +11,9 @@
     <script th:src="@{/lib/semanticui/semantic.min.js}"></script>
     <title th:text="|SSCoordinator: ${pageInfo.pageName()}|">Dummy Title</title>
 </head>
+
 <body>
+
 <nav th:fragment="menubar" class="ui fixed inverted menu">
     <a href="#" th:href="@{/home}" class="item">
         <i class="calendar alternate outline icon"></i>
@@ -23,12 +25,19 @@
     <div class="ui simple dropdown item">
         <i class="user icon"></i><i class="dropdown icon"></i>
         <div class="ui menu">
-            <div class="item">Action</div>
-            <div class="item">Action</div>
+            <div class="item">
+                <p>
+                    <span th:text="${account.accountName()}"></span><br/>
+                    <span th:text="${account.emailAddress()}"></span>
+                </p>
+            </div>
+            <div class="divider"></div>
+            <div class="item">Action1</div>
+            <div class="item">Action2</div>
             <div class="divider"></div>
             <div class="item">
                 <form name="" action="#" th:action="@{/logout}" method="post">
-                    <button type="submit" class="ui button">Logout</button>
+                    <button type="submit" class="ui button centered aligned">Logout</button>
                 </form>
             </div>
         </div>
