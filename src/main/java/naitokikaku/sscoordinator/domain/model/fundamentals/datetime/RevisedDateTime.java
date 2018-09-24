@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @EqualsAndHashCode
-public class RevisedDateTime implements Serializable {
+public class RevisedDateTime implements Serializable, Comparable<RevisedDateTime> {
     LocalDateTime value;
 
     public RevisedDateTime() {
@@ -26,5 +26,10 @@ public class RevisedDateTime implements Serializable {
     public String toString() {
         if (value == null) return "";
         return value.toString();
+    }
+
+    @Override
+    public int compareTo(RevisedDateTime o) {
+        return value.compareTo(o.value);
     }
 }

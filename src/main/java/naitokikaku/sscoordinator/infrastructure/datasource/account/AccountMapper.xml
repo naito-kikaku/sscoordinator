@@ -145,23 +145,32 @@
     </select>
 
     <delete id="deleteLatestNamePointer">
-        DELETE FROM account.latest_account_names
+        DELETE
+        FROM account.latest_account_names
         WHERE account_id = #{accountId.value}
     </delete>
 
     <delete id="deleteLatestEmailAddressPointer">
-        DELETE FROM account.latest_email_addresses
+        DELETE
+        FROM account.latest_email_addresses
         WHERE account_id = #{accountId.value}
     </delete>
 
     <delete id="deleteLatestPasswordPointer">
-        DELETE FROM account.latest_passwords
+        DELETE
+        FROM account.latest_passwords
         WHERE account_id = #{accountId.value}
     </delete>
 
     <delete id="deleteActiveEmailAddress">
-        DELETE FROM account.active_email_addresses
+        DELETE
+        FROM account.active_email_addresses
         WHERE email_address = #{emailAddress.value}
     </delete>
+
+    <insert id="storeDeletePointer">
+        INSERT INTO account.deleted_accounts (account_id)
+        VALUES (#{accountId.value})
+    </insert>
 
 </mapper>

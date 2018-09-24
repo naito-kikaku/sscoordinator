@@ -3,6 +3,7 @@ package naitokikaku.sscoordinator.presentation.controller.account;
 import naitokikaku.sscoordinator.application.usecase.account.changeemail.ChangeEmailAddress;
 import naitokikaku.sscoordinator.application.usecase.account.changename.ChangeAccountName;
 import naitokikaku.sscoordinator.application.usecase.account.changepassword.ChangePassword;
+import naitokikaku.sscoordinator.application.usecase.account.delete.DeleteAccount;
 import naitokikaku.sscoordinator.domain.model.account.Account;
 import naitokikaku.sscoordinator.domain.model.account.AccountName;
 import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
@@ -12,6 +13,7 @@ import naitokikaku.sscoordinator.domain.model.account.password.policy.PasswordPo
 import naitokikaku.sscoordinator.domain.model.account.policy.AccountPolicy;
 import naitokikaku.sscoordinator.domain.model.account.policy.AccountPolicyViolations;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshot;
+import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshotRepository;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.Breadcrumb;
 import naitokikaku.sscoordinator.presentation.controller.fundamentals.page.PageInfo;
 import naitokikaku.sscoordinator.presentation.controller.home.HomePageInfo;
@@ -47,6 +49,9 @@ public class MyAccountProfileController {
         ));
     }
 
+    @Resource
+    AccountSnapshotRepository accountSnapshotRepository;
+
     @GetMapping
     public String index(Model model) {
         model.addAttribute("accountName", new AccountName());
@@ -60,14 +65,14 @@ public class MyAccountProfileController {
 
     @PostMapping(params = "accountName")
     public String postAccountName(@Validated @ModelAttribute("accountName") AccountName accountName, BindingResult binding,
-                                  @ModelAttribute("accountSnapshot") AccountSnapshot accountSnapshot,
                                   RedirectAttributes attributes, SessionStatus status) {
         if (binding.hasErrors()) {
             attributes.addFlashAttribute("bindingErrors", binding.getFieldErrors());
             return "redirect:/myaccount/profile";
         }
-        if (accountName.same(accountSnapshot.accountName())) return "redirect:/myaccount/profile";
-        changeAccountName.execute(accountSnapshot, accountName);
+        AccountSnapshot snapshot = accountSnapshotRepository.get();
+        if (accountName.same(snapshot.accountName())) return "redirect:/myaccount/profile";
+        changeAccountName.execute(accountName);
         attributes.addFlashAttribute("successMessage", "アカウント名を変更しました。");
         status.setComplete();
         return "redirect:/myaccount/profile";
@@ -80,20 +85,20 @@ public class MyAccountProfileController {
 
     @PostMapping(params = "emailAddress")
     public String postEmailAddress(@Validated @ModelAttribute("emailAddress") EmailAddress emailAddress, BindingResult binding,
-                                   @ModelAttribute("accountSnapshot") AccountSnapshot accountSnapshot,
                                    RedirectAttributes attributes, SessionStatus status) {
         if (binding.hasErrors()) {
             attributes.addFlashAttribute("bindingErrors", binding.getAllErrors());
             return "redirect:/myaccount/profile";
         }
-        if (emailAddress.same(accountSnapshot.emailAddress())) return "redirect:/myaccount/profile";
-        Account draft = accountSnapshot.account().replace(emailAddress);
+        AccountSnapshot snapshot = accountSnapshotRepository.get();
+        if (emailAddress.same(snapshot.emailAddress())) return "redirect:/myaccount/profile";
+        Account draft = snapshot.account().replace(emailAddress);
         AccountPolicyViolations accountPolicyViolations = accountPolicy.valid(draft);
         if (!accountPolicyViolations.isNothing()) {
             attributes.addFlashAttribute("accountPolicyViolations", accountPolicyViolations);
             return "redirect:/myaccount/profile";
         }
-        changeEmailAddress.execute(accountSnapshot, emailAddress);
+        changeEmailAddress.execute(emailAddress);
         attributes.addFlashAttribute("successMessage", "メールアドレスを変更しました。");
         status.setComplete();
         return "redirect:/myaccount/profile";
@@ -109,9 +114,9 @@ public class MyAccountProfileController {
 
     @PostMapping(params = "password")
     public String postPassword(@Validated @ModelAttribute("passwordForm") PasswordForm passwordForm, BindingResult binding,
-                               @ModelAttribute("accountSnapshot") AccountSnapshot accountSnapshot,
                                RedirectAttributes attributes, SessionStatus status) {
-        boolean currentPasswordUnmatch = !passwordEncoder.matches(passwordForm.currentPassword.toString(), accountSnapshot.password().toString());
+        AccountSnapshot snapshot = accountSnapshotRepository.get();
+        boolean currentPasswordUnmatch = !passwordEncoder.matches(passwordForm.currentPassword.toString(), snapshot.password().toString());
         if (currentPasswordUnmatch) {
             attributes.addFlashAttribute("errorMessage", "現在のパスワードが間違っています。");
             return "redirect:/myaccount/profile";
@@ -126,10 +131,20 @@ public class MyAccountProfileController {
             return "redirect:/myaccount/profile";
         }
         String encryptPassword = passwordEncoder.encode(passwordForm.newPassword.toString());
-        changePassword.execute(accountSnapshot, new EncryptPassword(encryptPassword));
+        changePassword.execute(new EncryptPassword(encryptPassword));
         attributes.addFlashAttribute("successMessage", "パスワードを変更しました。");
         status.setComplete();
         return "redirect:/myaccount/profile";
+    }
+
+    @Resource
+    DeleteAccount deleteAccount;
+
+    @PostMapping(params = "delete")
+    public String postPassword(SessionStatus status) {
+        deleteAccount.execute();
+        status.setComplete();
+        return "redirect:/";
     }
 
     @InitBinder

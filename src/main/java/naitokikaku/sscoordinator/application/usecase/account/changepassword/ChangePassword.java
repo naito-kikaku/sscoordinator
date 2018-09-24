@@ -6,6 +6,7 @@ import naitokikaku.sscoordinator.domain.model.account.AccountRepository;
 import naitokikaku.sscoordinator.domain.model.account.password.EncryptPassword;
 import naitokikaku.sscoordinator.domain.model.account.revision.AccountRevision;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshot;
+import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshotRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +16,15 @@ import javax.annotation.Resource;
 @Component
 public class ChangePassword {
     @Resource
+    AccountSnapshotRepository accountSnapshotRepository;
+    @Resource
     AccountRepository accountRepository;
     @Resource
     ApplicationEventPublisher publisher;
 
     @Transactional
-    public void execute(AccountSnapshot snapshot, EncryptPassword encryptPassword) {
+    public void execute(EncryptPassword encryptPassword) {
+        AccountSnapshot snapshot = accountSnapshotRepository.get();
         if (encryptPassword.same(snapshot.password())) return;
 
         AccountRevision updatedRevision = accountRepository.update(encryptPassword);

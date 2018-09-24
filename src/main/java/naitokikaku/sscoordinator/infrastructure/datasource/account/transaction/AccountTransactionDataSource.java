@@ -7,6 +7,8 @@ import naitokikaku.sscoordinator.domain.model.account.transaction.changename.Cha
 import naitokikaku.sscoordinator.domain.model.account.transaction.changename.ChangeAccountNameTransactionRepository;
 import naitokikaku.sscoordinator.domain.model.account.transaction.changepassword.ChangePasswordTransaction;
 import naitokikaku.sscoordinator.domain.model.account.transaction.changepassword.ChangePasswordTransactionRepository;
+import naitokikaku.sscoordinator.domain.model.account.transaction.delete.DeleteAccountTransaction;
+import naitokikaku.sscoordinator.domain.model.account.transaction.delete.DeleteAccountTransactionRepository;
 import naitokikaku.sscoordinator.domain.model.account.transaction.signup.SignUpTransaction;
 import naitokikaku.sscoordinator.domain.model.account.transaction.signup.SignUpTransactionRepository;
 import org.springframework.stereotype.Repository;
@@ -15,7 +17,8 @@ import javax.annotation.Resource;
 
 @Repository
 public class AccountTransactionDataSource implements SignUpTransactionRepository,
-        ChangeAccountNameTransactionRepository, ChangeEmailAddressTransactionRepository, ChangePasswordTransactionRepository {
+        ChangeAccountNameTransactionRepository, ChangeEmailAddressTransactionRepository,
+        ChangePasswordTransactionRepository, DeleteAccountTransactionRepository {
     @Resource
     AccountTransactionMapper mapper;
 
@@ -45,5 +48,11 @@ public class AccountTransactionDataSource implements SignUpTransactionRepository
         AccountTransactionId transactionId = mapper.nextAccountTransactionId();
         mapper.storeHeader(transactionId, transaction.accountId(), transaction.type());
         mapper.storeChangePassword(transactionId, transaction);
+    }
+
+    @Override
+    public void store(DeleteAccountTransaction transaction) {
+        AccountTransactionId transactionId = mapper.nextAccountTransactionId();
+        mapper.storeHeader(transactionId, transaction.accountId(), transaction.type());
     }
 }

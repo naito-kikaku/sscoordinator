@@ -74,4 +74,6 @@ public interface AccountMapper {
     void deleteLatestPasswordPointer(@Param("accountId") AccountId accountId);
 
     void deleteActiveEmailAddress(@Param("emailAddress") EmailAddress emailAddress);
+
+    void storeDeletePointer(@Param("accountId") AccountId accountId);
 }

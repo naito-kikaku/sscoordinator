@@ -13,6 +13,8 @@ import naitokikaku.sscoordinator.infrastructure.authentication.SSCoordinatorSecu
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.Comparator;
+import java.util.stream.Stream;
 
 @Repository
 public class AccountDataSource implements AccountRepository {
@@ -99,9 +101,26 @@ public class AccountDataSource implements AccountRepository {
     }
 
     @Override
-    public AccountRevision delete(AccountId accountId) {
-        // TODO impl
-        return null;
+    public AccountRevision delete() {
+        mapper.storeDeletePointer(context.accountId());
+
+        AccountNameRevisionId latestNameRevisionId = mapper.getLatestNameRevisionId(context.accountId());
+        EmailAddressRevisionId latestEmailAddressRevisionId = mapper.getLatestEmailAddressRevisionId(context.accountId());
+        PasswordRevisionId latestPasswordRevisionId = mapper.getLatestPasswordRevisionId(context.accountId());
+
+        RevisedDateTime revisedDateTime = latestRevisedDateTime(latestNameRevisionId, latestEmailAddressRevisionId, latestPasswordRevisionId);
+        CreatedDateTime createdDateTime = mapper.getAccountCreatedDateTime(context.accountId());
+        DeletedDateTime deletedDateTime = mapper.getAccountDeletedDateTime(context.accountId());
+
+        return new AccountRevision(context.accountId(), latestNameRevisionId, latestEmailAddressRevisionId, latestPasswordRevisionId, deletedDateTime, revisedDateTime, createdDateTime);
     }
 
+    private RevisedDateTime latestRevisedDateTime(AccountNameRevisionId accountNameRevisionId, EmailAddressRevisionId emailAddressRevisionId, PasswordRevisionId passwordRevisionId) {
+        RevisedDateTime nameRevisedDateTime = mapper.getNameRevisionRevisedDateTime(accountNameRevisionId);
+        RevisedDateTime emailRevisedDateTime = mapper.getEmailAddressRevisionRevisedDateTime(emailAddressRevisionId);
+        RevisedDateTime passwordRevisedDateTIme = mapper.getPasswordRevisionRevisedDateTime(passwordRevisionId);
+        return Stream.of(nameRevisedDateTime, emailRevisedDateTime, passwordRevisedDateTIme)
+                .max(Comparator.naturalOrder())
+                .get();
+    }
 }

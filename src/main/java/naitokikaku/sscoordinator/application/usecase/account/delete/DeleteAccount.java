@@ -1,8 +1,6 @@
-package naitokikaku.sscoordinator.application.usecase.account.changename;
+package naitokikaku.sscoordinator.application.usecase.account.delete;
 
-import naitokikaku.sscoordinator.application.usecase.account.changename.complete.ChangeAccountNameCompleteEvent;
-import naitokikaku.sscoordinator.domain.model.account.Account;
-import naitokikaku.sscoordinator.domain.model.account.AccountName;
+import naitokikaku.sscoordinator.application.usecase.account.delete.complete.DeleteAccountEvent;
 import naitokikaku.sscoordinator.domain.model.account.AccountRepository;
 import naitokikaku.sscoordinator.domain.model.account.revision.AccountRevision;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshot;
@@ -14,23 +12,21 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 
 @Component
-public class ChangeAccountName {
+public class DeleteAccount {
     @Resource
     AccountSnapshotRepository accountSnapshotRepository;
     @Resource
     AccountRepository accountRepository;
-
     @Resource
     ApplicationEventPublisher publisher;
 
     @Transactional
-    public void execute(AccountName accountName) {
+    public void execute() {
         AccountSnapshot snapshot = accountSnapshotRepository.get();
-        if (accountName.same(snapshot.accountName())) return;
 
-        AccountRevision updatedRevision = accountRepository.update(accountName);
+        AccountRevision deletedRevision = accountRepository.delete();
+        accountRepository.deleteActive(snapshot.emailAddress());
 
-        Account updatedAccount = snapshot.account().replace(accountName);
-        publisher.publishEvent(new ChangeAccountNameCompleteEvent(this, updatedAccount, updatedRevision));
+        publisher.publishEvent(new DeleteAccountEvent(this, snapshot.account(), deletedRevision));
     }
 }

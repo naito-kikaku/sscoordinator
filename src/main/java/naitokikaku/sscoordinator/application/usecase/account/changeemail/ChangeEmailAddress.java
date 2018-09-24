@@ -7,6 +7,7 @@ import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
 import naitokikaku.sscoordinator.domain.model.account.policy.AccountPolicy;
 import naitokikaku.sscoordinator.domain.model.account.revision.AccountRevision;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshot;
+import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshotRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,12 +19,15 @@ public class ChangeEmailAddress {
     @Resource
     AccountPolicy accountPolicy;
     @Resource
+    AccountSnapshotRepository accountSnapshotRepository;
+    @Resource
     AccountRepository accountRepository;
     @Resource
     ApplicationEventPublisher publisher;
 
     @Transactional
-    public void execute(AccountSnapshot snapshot, EmailAddress emailAddress) {
+    public void execute(EmailAddress emailAddress) {
+        AccountSnapshot snapshot = accountSnapshotRepository.get();
         Account draft = snapshot.account().replace(emailAddress);
         if (!accountPolicy.ok(draft)) throw new IllegalArgumentException();
         if (emailAddress.same(snapshot.emailAddress())) return;
