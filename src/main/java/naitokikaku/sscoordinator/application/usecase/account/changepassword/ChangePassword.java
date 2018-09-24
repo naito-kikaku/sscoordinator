@@ -22,6 +22,7 @@ public class ChangePassword {
     @Transactional
     public void execute(AccountSnapshot snapshot, EncryptPassword encryptPassword) {
         if (encryptPassword.same(snapshot.password())) return;
+
         AccountRevision updatedRevision = accountRepository.update(encryptPassword);
 
         Account updatedAccount = snapshot.account().replace(encryptPassword);

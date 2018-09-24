@@ -22,6 +22,7 @@ public class ChangeAccountName {
     @Transactional
     public void execute(AccountSnapshot snapshot, AccountName accountName) {
         if (accountName.same(snapshot.accountName())) return;
+
         AccountRevision updatedRevision = accountRepository.update(accountName);
 
         Account updatedAccount = snapshot.account().replace(accountName);

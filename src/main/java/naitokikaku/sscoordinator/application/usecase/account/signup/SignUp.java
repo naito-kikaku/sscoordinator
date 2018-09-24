@@ -23,8 +23,10 @@ public class SignUp {
     @Transactional
     public void execute(Account account) {
         if (!accountPolicy.ok(account)) throw new IllegalArgumentException();
+
         accountRepository.storeActive(account.emailAddress());
         AccountRevision storedRevision = accountRepository.store(account);
+
         publisher.publishEvent(new SignUpCompleteEvent(this, account, storedRevision));
     }
 }
