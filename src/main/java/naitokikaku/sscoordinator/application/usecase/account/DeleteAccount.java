@@ -1,11 +1,8 @@
-package naitokikaku.sscoordinator.application.usecase.account.delete;
+package naitokikaku.sscoordinator.application.usecase.account;
 
-import naitokikaku.sscoordinator.application.usecase.account.delete.complete.DeleteAccountEvent;
 import naitokikaku.sscoordinator.domain.model.account.AccountRepository;
-import naitokikaku.sscoordinator.domain.model.account.revision.AccountRevision;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshot;
 import naitokikaku.sscoordinator.domain.model.account.snapshot.AccountSnapshotRepository;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,16 +14,14 @@ public class DeleteAccount {
     AccountSnapshotRepository accountSnapshotRepository;
     @Resource
     AccountRepository accountRepository;
-    @Resource
-    ApplicationEventPublisher publisher;
 
     @Transactional
     public void execute() {
-        AccountSnapshot snapshot = accountSnapshotRepository.get();
+        accountRepository.lock();
+        AccountSnapshot snapshot = accountSnapshotRepository.getLatest();
 
-        AccountRevision deletedRevision = accountRepository.delete();
         accountRepository.deleteActive(snapshot.emailAddress());
-
-        publisher.publishEvent(new DeleteAccountEvent(this, snapshot.account(), deletedRevision));
+        accountRepository.delete();
+        accountSnapshotRepository.capture();
     }
 }

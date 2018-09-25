@@ -1,9 +1,9 @@
 package naitokikaku.sscoordinator.presentation.controller.account;
 
-import naitokikaku.sscoordinator.application.usecase.account.changeemail.ChangeEmailAddress;
-import naitokikaku.sscoordinator.application.usecase.account.changename.ChangeAccountName;
-import naitokikaku.sscoordinator.application.usecase.account.changepassword.ChangePassword;
-import naitokikaku.sscoordinator.application.usecase.account.delete.DeleteAccount;
+import naitokikaku.sscoordinator.application.usecase.account.ChangeEmailAddress;
+import naitokikaku.sscoordinator.application.usecase.account.ChangeAccountName;
+import naitokikaku.sscoordinator.application.usecase.account.ChangePassword;
+import naitokikaku.sscoordinator.application.usecase.account.DeleteAccount;
 import naitokikaku.sscoordinator.domain.model.account.Account;
 import naitokikaku.sscoordinator.domain.model.account.AccountName;
 import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
@@ -70,7 +70,7 @@ public class MyAccountProfileController {
             attributes.addFlashAttribute("bindingErrors", binding.getFieldErrors());
             return "redirect:/myaccount/profile";
         }
-        AccountSnapshot snapshot = accountSnapshotRepository.get();
+        AccountSnapshot snapshot = accountSnapshotRepository.getLatest();
         if (accountName.same(snapshot.accountName())) return "redirect:/myaccount/profile";
         changeAccountName.execute(accountName);
         attributes.addFlashAttribute("successMessage", "アカウント名を変更しました。");
@@ -90,7 +90,7 @@ public class MyAccountProfileController {
             attributes.addFlashAttribute("bindingErrors", binding.getAllErrors());
             return "redirect:/myaccount/profile";
         }
-        AccountSnapshot snapshot = accountSnapshotRepository.get();
+        AccountSnapshot snapshot = accountSnapshotRepository.getLatest();
         if (emailAddress.same(snapshot.emailAddress())) return "redirect:/myaccount/profile";
         Account draft = snapshot.account().replace(emailAddress);
         AccountPolicyViolations accountPolicyViolations = accountPolicy.valid(draft);
@@ -115,7 +115,7 @@ public class MyAccountProfileController {
     @PostMapping(params = "password")
     public String postPassword(@Validated @ModelAttribute("passwordForm") PasswordForm passwordForm, BindingResult binding,
                                RedirectAttributes attributes, SessionStatus status) {
-        AccountSnapshot snapshot = accountSnapshotRepository.get();
+        AccountSnapshot snapshot = accountSnapshotRepository.getLatest();
         boolean currentPasswordUnmatch = !passwordEncoder.matches(passwordForm.currentPassword.toString(), snapshot.password().toString());
         if (currentPasswordUnmatch) {
             attributes.addFlashAttribute("errorMessage", "現在のパスワードが間違っています。");

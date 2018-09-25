@@ -51,5 +51,4 @@ public class AccountSnapshot implements Serializable {
         return accountStatus;
     }
 
-
 }

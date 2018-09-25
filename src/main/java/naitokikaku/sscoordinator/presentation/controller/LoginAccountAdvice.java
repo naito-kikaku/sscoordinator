@@ -20,7 +20,7 @@ public class LoginAccountAdvice {
 
     @ModelAttribute("accountSnapshot")
     public AccountSnapshot account() {
-        return accountSnapshotRepository.get();
+        return accountSnapshotRepository.getLatest();
     }
 
 }

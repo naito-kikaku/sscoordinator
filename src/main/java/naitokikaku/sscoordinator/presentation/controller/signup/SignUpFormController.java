@@ -1,6 +1,6 @@
 package naitokikaku.sscoordinator.presentation.controller.signup;
 
-import naitokikaku.sscoordinator.application.usecase.account.signup.SignUp;
+import naitokikaku.sscoordinator.application.usecase.account.SignUp;
 import naitokikaku.sscoordinator.domain.model.account.Account;
 import naitokikaku.sscoordinator.domain.model.account.AccountFactory;
 import naitokikaku.sscoordinator.domain.model.account.password.policy.PasswordPolicy;
