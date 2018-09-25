@@ -1,4 +1,4 @@
-package naitokikaku.sscoordinator.domain.model.account.revision;
+package naitokikaku.sscoordinator.domain.model.fundamentals.datetime;
 
 import lombok.EqualsAndHashCode;
 

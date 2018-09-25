@@ -1,4 +1,4 @@
-package naitokikaku.sscoordinator.domain.model.account.transaction;
+package naitokikaku.sscoordinator.infrastructure.datasource.account;
 
 public enum AccountTransactionType {
     SIGN_UP,

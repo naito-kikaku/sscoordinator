@@ -18,7 +18,7 @@ public class SSCoordinatorUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AccountSnapshot accountSnapshot = accountSnapshotRepository.findBy(new EmailAddress(username));
+        AccountSnapshot accountSnapshot = accountSnapshotRepository.findLatestBy(new EmailAddress(username));
         if (accountSnapshot != null)
             return new SSCoordinatorUserDetails(accountSnapshot, AuthorityUtils.createAuthorityList("USER"));
         throw new UsernameNotFoundException("not found : " + username);

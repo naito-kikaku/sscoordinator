@@ -1,12 +1,15 @@
 package naitokikaku.sscoordinator.domain.model.account.snapshot;
 
 import naitokikaku.sscoordinator.domain.model.account.EmailAddress;
+import naitokikaku.sscoordinator.domain.model.account.identity.AccountId;
 
 public interface AccountSnapshotRepository {
 
-    void capture(AccountSnapshot accountSnapshot);
+    void capture(AccountId accountId);
 
-    AccountSnapshot findBy(EmailAddress emailAddress);
+    void capture();
 
-    AccountSnapshot get();
+    AccountSnapshot findLatestBy(EmailAddress emailAddress);
+
+    AccountSnapshot getLatest();
 }
