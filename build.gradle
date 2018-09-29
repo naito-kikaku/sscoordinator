@@ -24,7 +24,7 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'naito-kikaku'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 10
+sourceCompatibility = 11
 
 bootJar {
     launchScript()
